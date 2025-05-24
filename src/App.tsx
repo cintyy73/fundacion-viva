@@ -4,7 +4,7 @@ function App() {
 
   return (
        
-      <Heading>Vite + React</Heading>
+      <Heading color='brand.500'>Vite + React</Heading>
       
   )
 }
