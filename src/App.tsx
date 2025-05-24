@@ -1,10 +1,10 @@
-import { Heading } from "@chakra-ui/react"
+import Header from "./components/Header"
 
 function App() {
 
   return (
        
-      <Heading color='brand.500'>Vite + React</Heading>
+    <Header />
       
   )
 }
