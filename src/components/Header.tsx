@@ -7,6 +7,7 @@ const Header = () => {
             justifyContent={{ base: "center", md: "space-around" }}
             height="125px"
             gap="0"
+            boxShadow='rgba(0, 0, 0, 0.1) 0px 4px 4px'
         >
             <Box
                 display='flex'
