@@ -15,7 +15,7 @@ const Footer = () => {
       alignItems="center"
       height={{ base: "auto", md: "250px" }}
       gap={{ base: 6, md: 0 }}
-      background="accent.500"
+      background="secondary.default"
       color="white"
       py={{ base: 6, md: 0 }}
       px={4}
