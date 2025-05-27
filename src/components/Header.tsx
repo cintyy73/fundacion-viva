@@ -16,7 +16,7 @@ const Header = () => {
             >
                 <Image height="40px" src="./public/logo.png" alt="Fundación Viva" />
                 <Link
-                    color="accent.500"
+                    color="secondary.default"
                     href="#"
                     fontSize={{base: 'xs', md: 'md'}}
                 >
@@ -35,7 +35,7 @@ const Header = () => {
                     display={{ base: "none", sm: "block" }}
                 />
                 <Link
-                    color="accent.500"
+                    color="secondary.default"
                     href="#"
                     display={{ base: "none", sm: "inline" }}
                     fontSize={{md: 'md'}}
@@ -43,7 +43,7 @@ const Header = () => {
                     Registrate
                 </Link>
                 <Link
-                    color="accent.500"
+                    color="secondary.default"
                     href="#"
                     display={{ base: "none", sm: "inline" }}
                     fontSize={{md: 'md'}}
