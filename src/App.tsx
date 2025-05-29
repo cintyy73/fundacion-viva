@@ -1,15 +1,15 @@
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import ProductCard from "./components/ProductCard"
+import Routing from "./routes/Routing"
 
 function App() {
 
   return (
-      <>
-        <Header />
-        <ProductCard />
-        <Footer />
-      </>
+    <>
+      <Header />
+      <Routing />
+      <Footer />
+    </>
   )
 }
 
