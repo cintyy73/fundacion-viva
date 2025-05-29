@@ -3,6 +3,7 @@ import {
     Card,
     CardBody,
     CardHeader,
+    Container,
     Divider,
     Heading,
     HStack,
@@ -18,20 +19,26 @@ import { LuHeartHandshake } from 'react-icons/lu'
 
 const Details = () => {
     return (
-        <VStack>
-            <Card>
+        <Container
+            display='flex'
+            flexDirection='column'
+            maxWidth='1200px'
+            gap='20px'
+            padding='20px'
+        >
+            <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
                 <CardHeader>
-                    <Heading size='md'>FUNDACIÓN VIVA</Heading>
+                    <Heading fontSize='xl' color="secondary.default">FUNDACIÓN VIVA</Heading>
                 </CardHeader>
             </Card>
-            <Card>
+            <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
                 <CardHeader>
-                    <Heading size='md'>Descripción</Heading>
+                    <Heading fontSize='xl' color="secondary.default">Descripción</Heading>
                     <Divider orientation='horizontal' marginTop='10px' />
                 </CardHeader>
                 <CardBody>
                     <Box>
-                        <Heading size='xs' textTransform='uppercase'>
+                        <Heading fontSize='xl' color="secondary.default">
                             Sobre nosotros:
                         </Heading>
                     </Box>
@@ -40,44 +47,41 @@ const Details = () => {
                         La Telefónica VIVA ha permitido el funcionamiento de la Fundación Viva durante estos 16 años, aportando un presupuesto anual para financiar su trabajo en áreas como la educación, tecnología, medio ambiente, igualdad de género, lucha contra la violencia y apoyo cultural en Bolivia.
                     </Text>
                 </CardBody>
-            </Card>\
-            <Card>
+            </Card>
+            <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'>
                 <CardHeader>
                     <HStack spacing={2} align='center' justify='space-between'>
-                        <Heading size='md'>Fundaviva</Heading>
-                        <Box display='flex' gap='10px'>
-                            <FaFacebookF />
-                            <FaInstagram />
-                            <FaXTwitter />
-                            <FaLinkedinIn />
-                            <FaYoutube />
+                        <Heading fontSize='xl' color="secondary.default" >Fundaviva</Heading>
+                        <Box display='flex' gap='10px' color="secondary.default">
+                            <FaFacebookF fontSize='2rem' color="secondary.default" />
+                            <FaInstagram fontSize='2rem' color="secondary.default" />
+                            <FaXTwitter fontSize='2rem' color="secondary.default" />
+                            <FaLinkedinIn fontSize='2rem' color="secondary.default" />
+                            <FaYoutube fontSize='2rem' color="secondary.default" />
                         </Box>
                     </HStack>
                     <Divider orientation='horizontal' marginTop='10px' />
                 </CardHeader>
                 <CardBody>
-                    <Box>
-                        <Heading size='xs' textTransform='uppercase'>
-                            Sobre nosotros:
-                        </Heading>
-                    </Box>
-                    <Text pt='2' fontSize='sm' display='flex' alignItems='center'>
-                        <IoLocationSharp /> Bolivia
+                    <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px'>
+                        <IoLocationSharp fontSize='2rem' /> Bolivia
                     </Text>
-                    <Text pt='2' fontSize='sm' display='flex' alignItems='center'>
-                        <LuHeartHandshake /> Tipo de organización: Organización de la Sociedad Civil / ONG
+                    <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px'>
+                        <LuHeartHandshake fontSize='2rem' /> Tipo de organización: Organización de la Sociedad Civil / ONG
                     </Text>
                 </CardBody>
             </Card>
-            <Card>
+            <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'>
                 <CardHeader>
-                    <Heading size='md'>Objetivos de desarrollo sustentable</Heading>
+                    <Heading fontSize='xl' color="secondary.default" >Objetivos de desarrollo sustentable</Heading>
                     <Divider orientation='horizontal' marginTop='10px' />
                 </CardHeader>
                 <CardBody>
-                    <Stack direction='row'>
+                    <Stack flexFlow='wrap' >
                         <Image
                             boxSize='100px'
+                            width='48px'
+                            height='48px'
                             borderRadius='10px'
                             objectFit='cover'
                             src='public/1.png'
@@ -85,6 +89,8 @@ const Details = () => {
                         />
                         <Image
                             boxSize='100px'
+                            width='48px'
+                            height='48px'
                             borderRadius='10px'
                             objectFit='cover'
                             src='public/2.png'
@@ -92,6 +98,8 @@ const Details = () => {
                         />
                         <Image
                             boxSize='100px'
+                            width='48px'
+                            height='48px'
                             borderRadius='10px'
                             objectFit='cover'
                             src='public/3.png'
@@ -99,6 +107,8 @@ const Details = () => {
                         />
                         <Image
                             boxSize='100px'
+                            width='48px'
+                            height='48px'
                             borderRadius='10px'
                             objectFit='cover'
                             src='public/4.png'
@@ -106,6 +116,8 @@ const Details = () => {
                         />
                         <Image
                             boxSize='100px'
+                            width='48px'
+                            height='48px'
                             borderRadius='10px'
                             objectFit='cover'
                             src='public/6.png'
@@ -113,6 +125,8 @@ const Details = () => {
                         />
                         <Image
                             boxSize='100px'
+                            width='48px'
+                            height='48px'
                             borderRadius='10px'
                             objectFit='cover'
                             src='public/7.png'
@@ -121,7 +135,7 @@ const Details = () => {
                     </Stack>
                 </CardBody>
             </Card>
-        </VStack>
+        </Container>
     )
 }
 
