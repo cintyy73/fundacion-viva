@@ -34,19 +34,19 @@ const Footer = () => {
       </Box>
       <Stack spacing={4} align="center" textAlign="center">
         <HStack spacing={6}>
-          <Link href="#" isExternal>
+          <Link href="#" isExternal _hover={{ color: "#C0E83E" }}>
             <Icon as={FaFacebook} boxSize={8} />
           </Link>
-          <Link href="#" isExternal>
+          <Link href="#" isExternal _hover={{ color: "#C0E83E" }}>
             <Icon as={FaInstagram} boxSize={8} />
           </Link>
-          <Link href="#" isExternal>
+          <Link href="#" isExternal _hover={{ color: "#C0E83E" }}>
             <Icon as={FaTwitter} boxSize={8} />
           </Link>
-          <Link href="#" isExternal>
+          <Link href="#" isExternal _hover={{ color: "#C0E83E" }}>
             <Icon as={FaLinkedin} boxSize={8} />
           </Link>
-          <Link href="#" isExternal>
+          <Link href="#" isExternal _hover={{ color: "#C0E83E" }}>
             <Icon as={FaYoutube} boxSize={8} />
           </Link>
         </HStack>
