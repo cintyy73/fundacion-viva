@@ -40,7 +40,7 @@ const Header = () => {
                 </Link>
                 <Link
                     color="secondary.default"
-                    href="https://app.fonselp.com/login"
+                    href="https://fonselp.org/registro/"
                     display={{ base: "none", sm: "inline" }}
                     fontSize={{ md: 'md' }}
                 >
