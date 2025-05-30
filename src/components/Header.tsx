@@ -15,7 +15,7 @@ const Header = () => {
                 gap='20px'
             >
                 <Link href="https://www.fundacion-viva.org/" isExternal>
-                    <Image height="40px" src="./public/logo.png" alt="Fundación Viva" />
+                    <Image height="40px" src="/logo.png" alt="Fundación Viva" />
                 </Link>
                 <Link
                     color="secondary.default"
@@ -33,7 +33,7 @@ const Header = () => {
                 <Link href="https://comprasocial.fonselp.org/" isExternal>
                     <Image
                         height="40px"
-                        src="./public/fonselp-logo.png"
+                        src="/fonselp-logo.png"
                         alt="Fonselp"
                         display={{ base: "none", sm: "block" }}
                     />

@@ -10,7 +10,6 @@ import {
     Image,
     Stack,
     Text,
-    VStack
 } from '@chakra-ui/react'
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
@@ -38,7 +37,7 @@ const Details = () => {
                 </CardHeader>
                 <CardBody>
                     <Box>
-                        <Heading fontSize='xl' color="secondary.default">
+                        <Heading fontSize='xl' color='primary.default'>
                             Sobre nosotros:
                         </Heading>
                     </Box>
@@ -52,22 +51,22 @@ const Details = () => {
                 <CardHeader>
                     <HStack spacing={2} align='center' justify='space-between'>
                         <Heading fontSize='xl' color="secondary.default" >Fundaviva</Heading>
-                        <Box display='flex' gap='10px' color="secondary.default">
-                            <FaFacebookF fontSize='2rem' color="secondary.default" />
-                            <FaInstagram fontSize='2rem' color="secondary.default" />
-                            <FaXTwitter fontSize='2rem' color="secondary.default" />
-                            <FaLinkedinIn fontSize='2rem' color="secondary.default" />
-                            <FaYoutube fontSize='2rem' color="secondary.default" />
+                        <Box display='flex' gap='10px' color="primary.default">
+                            <FaFacebookF fontSize='2rem' color="primary.default" />
+                            <FaInstagram fontSize='2rem' color="primary.default" />
+                            <FaXTwitter fontSize='2rem' color="primary.default" />
+                            <FaLinkedinIn fontSize='2rem' color="primary.default" />
+                            <FaYoutube fontSize='2rem' color="primary.default" />
                         </Box>
                     </HStack>
                     <Divider orientation='horizontal' marginTop='10px' />
                 </CardHeader>
                 <CardBody>
                     <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px'>
-                        <IoLocationSharp fontSize='2rem' /> Bolivia
+                        <IoLocationSharp fontSize='2rem' color="primary.default" /> Bolivia
                     </Text>
-                    <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px'>
-                        <LuHeartHandshake fontSize='2rem' /> Tipo de organización: Organización de la Sociedad Civil / ONG
+                    <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px' >
+                        <LuHeartHandshake fontSize='2rem' color="primary.default" /> Tipo de organización: Organización de la Sociedad Civil / ONG
                     </Text>
                 </CardBody>
             </Card>
@@ -84,7 +83,7 @@ const Details = () => {
                             height='48px'
                             borderRadius='10px'
                             objectFit='cover'
-                            src='public/1.png'
+                            src='/1.png'
                             alt='Desarrollo sostenible'
                         />
                         <Image
@@ -93,7 +92,7 @@ const Details = () => {
                             height='48px'
                             borderRadius='10px'
                             objectFit='cover'
-                            src='public/2.png'
+                            src='/2.png'
                             alt='Desarrollo sostenible'
                         />
                         <Image
@@ -102,7 +101,7 @@ const Details = () => {
                             height='48px'
                             borderRadius='10px'
                             objectFit='cover'
-                            src='public/3.png'
+                            src='/3.png'
                             alt='Desarrollo sostenible'
                         />
                         <Image
@@ -111,7 +110,7 @@ const Details = () => {
                             height='48px'
                             borderRadius='10px'
                             objectFit='cover'
-                            src='public/4.png'
+                            src='/4.png'
                             alt='Desarrollo sostenible'
                         />
                         <Image
@@ -120,7 +119,7 @@ const Details = () => {
                             height='48px'
                             borderRadius='10px'
                             objectFit='cover'
-                            src='public/6.png'
+                            src='/6.png'
                             alt='Desarrollo sostenible'
                         />
                         <Image
@@ -129,7 +128,7 @@ const Details = () => {
                             height='48px'
                             borderRadius='10px'
                             objectFit='cover'
-                            src='public/7.png'
+                            src='/7.png'
                             alt='Desarrollo sostenible'
                         />
                     </Stack>
