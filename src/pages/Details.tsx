@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Card,
     CardBody,
     CardHeader,
@@ -11,12 +12,16 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react'
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaLongArrowAltLeft, FaYoutube } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { IoLocationSharp } from 'react-icons/io5'
 import { LuHeartHandshake } from 'react-icons/lu'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Details = () => {
+
+    const navigate = useNavigate()
+
     return (
         <Container
             display='flex'
@@ -25,6 +30,11 @@ const Details = () => {
             gap='20px'
             padding='20px'
         >
+            <Box>
+                <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
+                   <FaLongArrowAltLeft /> Volver
+                </Button>
+            </Box>
             <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
                 <CardHeader>
                     <Heading fontSize='xl' color="secondary.default">FUNDACIÓN VIVA</Heading>

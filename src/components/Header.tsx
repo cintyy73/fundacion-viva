@@ -14,8 +14,8 @@ const Header = () => {
                 alignItems='center'
                 gap='20px'
             >
-                <Link href="https://www.fundacion-viva.org/" isExternal>
-                    <Image height="40px" src="/logo.png" alt="Fundación Viva" />
+                <Link href="https://comprasocial.fonselp.org/" isExternal>
+                    <Image height="40px" src="/logo.png" alt="Fonselp" />
                 </Link>
                 <Link
                     color="secondary.default"
