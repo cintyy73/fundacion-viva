@@ -16,7 +16,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaLongArrowAltLeft, FaYoutube }
 import { FaXTwitter } from 'react-icons/fa6'
 import { IoLocationSharp } from 'react-icons/io5'
 import { LuHeartHandshake } from 'react-icons/lu'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Details = () => {
 
