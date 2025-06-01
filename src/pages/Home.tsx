@@ -6,9 +6,9 @@ import Card from "../components/Card";
 
 const Home = () => {
   return (
-    <Box maxW="1200px" m="20px auto">
+    <Box maxW={{ base: "90%", md: "600px", xl: "1200px" }} m="20px auto">
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
-        <Masonry>
+        <Masonry gutter="10px">
           {createArray(9).map((id) => (
             <Box display="flex" justifyContent="center" key={id}>
               <Card />

@@ -12,15 +12,17 @@ import { NavLink } from "react-router-dom";
 const Card = () => {
   return (
     <Box
+    display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       boxShadow="md"
       bg="white"
-      m="4 auto"
-      w="100%"
-      maxW={{ base: "90%", sm: "90%", md: "350px" }}
-      id="1"
+      m="4"
+      id="2"
     >
       <Image src="../imagenEjemploCard.png" />
       <VStack spacing={3} align="start" padding={4}>
@@ -31,7 +33,7 @@ const Card = () => {
         </Text>
         <Text>Pertenece a las siguientes redes:</Text>
         <Image src="../logoRedEjemplo.jpeg" boxSize="50px" />
-        <HStack justify="space-between" w="100%">
+        <HStack justify="space-between">
           <Link>YouthBuild México</Link>
           <Button as={NavLink} to={`/details`}>
             Ver más
