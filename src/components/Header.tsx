@@ -26,22 +26,21 @@ const Header = () => {
                 </Link>
             </Box>
             <Box
-                display='flex'
+                display={{ base: "none", customMd: "flex" }}
                 alignItems='center'
                 gap='20px'
+                // display={{ base: "none", lg: "flex" }}
             >
                 <Link href="https://comprasocial.fonselp.org/" isExternal>
                     <Image
                         height="40px"
                         src="/fonselp-logo.png"
                         alt="Fonselp"
-                        display={{ base: "none", sm: "block" }}
                     />
                 </Link>
                 <Link
                     color="secondary.default"
                     href="https://fonselp.org/registro/"
-                    display={{ base: "none", sm: "inline" }}
                     fontSize={{ md: 'md' }}
                 >
                     Registrate
@@ -49,7 +48,6 @@ const Header = () => {
                 <Link
                     color="secondary.default"
                     href="https://app.fonselp.com/login"
-                    display={{ base: "none", sm: "inline" }}
                     fontSize={{ md: 'md' }}
                 >
                     Iniciar Sesión
