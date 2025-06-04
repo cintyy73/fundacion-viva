@@ -12,17 +12,17 @@ const { data, isLoading, error } = useQuery({
     queryKey: ['catalogs'],
     queryFn: fetchData,
   });
-console.log(data)
+// console.log(data?.data)
   if (isLoading) return <div>Cargando productos...</div>;
   if (error) return <div>Error al cargar productos</div>;
 
   return (
-    <Box maxW={{ base: "90%", md: "600px", xl: "900px" }} m="20px auto">
+    <Box maxW={{ base: "90%", md: "768px", lg: "992px", xl: "1600" }} m="20px auto">
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
         <Masonry gutter="15px">
-          {createArray(9).map((id) => (
-            <Box display="flex" justifyContent="center" key={id}>
-              <Card />
+          {data?.data.map((data) => (
+            <Box display="flex" justifyContent="space-around" >
+              <Card key={data.id} data={data} />
             </Box>
           ))}
         </Masonry>
