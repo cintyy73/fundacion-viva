@@ -1,57 +1,45 @@
+import { Product } from "@/types";
 import {
-  Box,
   Button,
+  CardBody,
+  CardFooter,
+  CardHeader,
   Divider,
-  HStack,
   Image,
-  Link,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
+import { Card as ChakraCard } from "@chakra-ui/react";
 
-const Card = ({data}) => {
-
-console.log(data)
-
+interface CardProps {
+  data: Product;
+}
+const Card = ({ data }: CardProps) => {
   return (
-    <Box
-    display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      boxShadow="md"
-      bg="white"
-      m="4"
-    >
-      <Image 
-      src={data.photo_path}
-      display={data.photo_path ? "block" : "none"} 
-       />
-      <VStack spacing={3} align="start" padding={4}>
-        <Text>{data.entity.about_us}</Text>
-        <Divider border="solid 1px" />
-        <Text dangerouslySetInnerHTML={{ __html: data.short_description }} />
+    <ChakraCard borderRadius="10px">
+      <Image
+        src="./public/imagenEjemploCard.png"
+        display={data.photo_path ? "block" : "none"} borderRadius="10px 10px 0 0"
+      />
+      <CardHeader >
+        <Text>{data.title}</Text>
         <Divider border="1px" />
-        <Text>Pertenece a las siguientes redes:</Text>
-        <Image 
-        alt={data.networks.name} 
-        src={data.networks[0]?.logo_url} 
-        display={data.networks?.[0]?.logo_url ? "block" : "none"} 
-        boxSize="50px" 
-        />
-        <HStack justify="space-between">
-          <Link>{data.entity.fantasy_name}</Link>
-          <Button as={NavLink} to={`/details`}>
-            Ver más
-          </Button>
-        </HStack>
-        <Text>{data.entity.type.name}</Text>
-      </VStack>
-    </Box>
+      </CardHeader>
+      <CardBody>
+        <Text dangerouslySetInnerHTML={{ __html: data.short_description }} />
+      </CardBody>
+
+      <CardFooter display="flex" justifyContent="space-between" alignItems="center">
+        <Text as="a" href={data.entity?.web_profile}>
+          {data.entity.fantasy_name}
+        </Text>
+        <Button as={NavLink} to={`/details/${data.id}`}>
+          Ver más
+        </Button>
+        
+      </CardFooter>
+      <Text>{data.entity.type.name}</Text>
+    </ChakraCard>
   );
 };
 
