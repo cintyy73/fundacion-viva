@@ -6,24 +6,30 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/service/product.service";
 
 const Home = () => {
-
-const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['catalogs'],
     queryFn: fetchData,
   });
 
-  if (isLoading) return <div>Cargando productos...</div>;
   if (error) return <div>Error al cargar productos</div>;
 
+  const skeletonCount = 9;
+
   return (
-    <Box maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px"}} m="20px auto">
+    <Box maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }} m="20px auto">
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
         <Masonry gutter="15px">
-          {data?.data.map((data) => (
-            <Box display="flex" justifyContent="space-around" >
-              <Card key={data.id} data={data} />
-            </Box>
-          ))}
+          {isLoading
+            ? Array.from({ length: skeletonCount }).map((_, i) => (
+                <Box key={i} display="flex" justifyContent="space-around">
+                  <Card isLoading />
+                </Box>
+              ))
+            : data?.data.map((product) => (
+                <Box key={product.id} display="flex" justifyContent="space-around">
+                  <Card data={product} />
+                </Box>
+              ))}
         </Masonry>
       </ResponsiveMasonry>
     </Box>
