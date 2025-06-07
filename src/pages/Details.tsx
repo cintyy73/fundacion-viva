@@ -1,26 +1,125 @@
+import { fetchProduct } from '@/service/product.service'
+// import ods from 'public/ods'
 import {
     Box,
     Button,
     Card,
     CardBody,
+    CardFooter,
     CardHeader,
     Container,
     Divider,
     Heading,
     HStack,
     Image,
+    Link,
+    Skeleton,
+    SkeletonText,
     Stack,
     Text,
 } from '@chakra-ui/react'
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaLongArrowAltLeft, FaYoutube } from 'react-icons/fa'
+import { useQuery } from '@tanstack/react-query'
+import { FaFacebookF, FaInstagram, FaLink, FaLinkedinIn, FaLongArrowAltLeft, FaYoutube } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { IoLocationSharp } from 'react-icons/io5'
 import { LuHeartHandshake } from 'react-icons/lu'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { ods } from '@/utils/constant'
 
 const Details = () => {
 
-    const navigate = useNavigate()
+    const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
+
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['product', id],
+        queryFn: () => fetchProduct(id),
+        enabled: !!id,
+    });
+
+    const CardSkeleton = () => {
+        return (
+            <Container
+                display='flex'
+                flexDirection='column'
+                maxWidth='1200px'
+                gap='20px'
+                padding='20px'
+            >
+                <Box>
+                    <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
+                        <FaLongArrowAltLeft /> Volver
+                    </Button>
+                </Box>
+                <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
+                    <CardHeader>
+                        <Skeleton height='30px' />
+                    </CardHeader>
+                </Card>
+                <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
+                    <CardHeader>
+                        <Skeleton height='20px' />
+                        <Divider orientation='horizontal' marginTop='10px' />
+                    </CardHeader>
+                    <CardBody>
+                        <Box>
+                            <Skeleton height='15px' width='200px' />
+                        </Box>
+                        <Box marginTop='10px'>
+                            <SkeletonText noOfLines={3} spacing="3" />
+                        </Box>
+                    </CardBody>
+                </Card>
+                <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'>
+                    <CardHeader>
+                        <HStack spacing={2} align='center' justify='space-between'>
+                            <Skeleton height='15px' width='200px' />
+                            <Box display='flex' gap='10px' color="primary.default">
+                                <Skeleton height='15px' width='200px' />
+                            </Box>
+                        </HStack>
+                        <Divider orientation='horizontal' marginTop='10px' />
+                    </CardHeader>
+                    <CardBody>
+                        <Box pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px'>
+                            <Skeleton height='15px' width='300px' />
+                        </Box>
+                        <Box pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px' >
+                            <Skeleton height='15px' width='300px' />
+                        </Box>
+                    </CardBody>
+                </Card>
+                <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'>
+                    <CardHeader>
+                        <Skeleton height='15px' width='200px' />
+                        <Divider orientation='horizontal' marginTop='10px' />
+                    </CardHeader>
+                    <CardBody>
+                        <Stack flexFlow='wrap' >
+                            <Skeleton height='15px' width='300px' />
+                        </Stack>
+                    </CardBody>
+                </Card>
+            </Container>
+        );
+    };
+
+    if (isLoading) return <CardSkeleton />;
+
+    if (error || !data) {
+        return (
+            <Box textAlign="center" py={10} px={6}>
+                <Heading as="h2" size="xl" mb={2} color='secundary.default'>
+                    Error al cargar el detalle del producto
+                </Heading>
+                <Text color='primery.default' fontSize='lg'>
+                    Por favor, intentá recargar la página o volver más tarde.
+                </Text>
+            </Box>
+        );
+    }
+
+    const { title, description, entity, sdgs } = data;
 
     return (
         <Container
@@ -32,17 +131,21 @@ const Details = () => {
         >
             <Box>
                 <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
-                   <FaLongArrowAltLeft /> Volver
+                    <FaLongArrowAltLeft /> Volver
                 </Button>
             </Box>
             <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
                 <CardHeader>
-                    <Heading fontSize='xl' color="secondary.default">FUNDACIÓN VIVA</Heading>
+                    <Heading fontSize='xl' color="secondary.default">{title}</Heading>
                 </CardHeader>
             </Card>
             <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
                 <CardHeader>
-                    <Heading fontSize='xl' color="secondary.default">Descripción</Heading>
+                    <Heading
+                        fontSize='xl'
+                        color="secondary.default"
+                        dangerouslySetInnerHTML={{ __html: description }}
+                    ></Heading>
                     <Divider orientation='horizontal' marginTop='10px' />
                 </CardHeader>
                 <CardBody>
@@ -52,31 +155,50 @@ const Details = () => {
                         </Heading>
                     </Box>
                     <Text pt='2' fontSize='sm'>
-                        La Fundación Viva, establecida en 2008 por la Junta de Accionistas de la empresa Nuevatel PCS de Bolivia (VIVA), refleja el compromiso de la compañía con la Responsabilidad Social Empresarial. Está legalmente establecida como Fundación Estás Vivo, pero es más conocida como Fundación VIVA y su alcance es nacional.
-                        La Telefónica VIVA ha permitido el funcionamiento de la Fundación Viva durante estos 16 años, aportando un presupuesto anual para financiar su trabajo en áreas como la educación, tecnología, medio ambiente, igualdad de género, lucha contra la violencia y apoyo cultural en Bolivia.
+                        {entity.about_us}
                     </Text>
                 </CardBody>
             </Card>
             <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'>
                 <CardHeader>
                     <HStack spacing={2} align='center' justify='space-between'>
-                        <Heading fontSize='xl' color="secondary.default" >Fundaviva</Heading>
+                        <Heading fontSize='xl' color="secondary.default" >{entity.bussiness_name}</Heading>
                         <Box display='flex' gap='10px' color="primary.default">
-                            <FaFacebookF fontSize='2rem' color="primary.default" />
-                            <FaInstagram fontSize='2rem' color="primary.default" />
-                            <FaXTwitter fontSize='2rem' color="primary.default" />
-                            <FaLinkedinIn fontSize='2rem' color="primary.default" />
-                            <FaYoutube fontSize='2rem' color="primary.default" />
+                            {entity.web_profile && (
+                                <Link href={entity.web_profile} isExternal>
+                                    <FaLink fontSize="2rem" color="primary.default" />
+                                </Link>
+                            )}
+                            {entity.facebook_profile && (
+                                <Link href={entity.facebook_profile} isExternal>
+                                    <FaFacebookF fontSize="2rem" color="primary.default" />
+                                </Link>
+                            )}
+                            {entity.instagram_profile && (
+                                <Link href={entity.instagram_profile} isExternal>
+                                    <FaInstagram fontSize="2rem" color="primary.default" />
+                                </Link>
+                            )}
+                            {entity.linkedin_profile && (
+                                <Link href={entity.linkedin_profile} isExternal>
+                                    <FaLinkedinIn fontSize="2rem" color="primary.default" />
+                                </Link>
+                            )}
+                            {entity.twitter_profile && (
+                                <Link href={entity.twitter_profile} isExternal>
+                                    <FaXTwitter fontSize="2rem" color="primary.default" />
+                                </Link>
+                            )}
                         </Box>
                     </HStack>
                     <Divider orientation='horizontal' marginTop='10px' />
                 </CardHeader>
                 <CardBody>
                     <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px'>
-                        <IoLocationSharp fontSize='2rem' color="primary.default" /> Bolivia
+                        <IoLocationSharp fontSize='2rem' color="primary.default" /> {entity.address}
                     </Text>
                     <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px' >
-                        <LuHeartHandshake fontSize='2rem' color="primary.default" /> Tipo de organización: Organización de la Sociedad Civil / ONG
+                        <LuHeartHandshake fontSize='2rem' color="primary.default" /> Tipo de organización: {entity.type.name}
                     </Text>
                 </CardBody>
             </Card>
@@ -86,61 +208,27 @@ const Details = () => {
                     <Divider orientation='horizontal' marginTop='10px' />
                 </CardHeader>
                 <CardBody>
-                    <Stack flexFlow='wrap' >
-                        <Image
-                            boxSize='100px'
-                            width='48px'
-                            height='48px'
-                            borderRadius='10px'
-                            objectFit='cover'
-                            src='/1.png'
-                            alt='Desarrollo sostenible'
-                        />
-                        <Image
-                            boxSize='100px'
-                            width='48px'
-                            height='48px'
-                            borderRadius='10px'
-                            objectFit='cover'
-                            src='/2.png'
-                            alt='Desarrollo sostenible'
-                        />
-                        <Image
-                            boxSize='100px'
-                            width='48px'
-                            height='48px'
-                            borderRadius='10px'
-                            objectFit='cover'
-                            src='/3.png'
-                            alt='Desarrollo sostenible'
-                        />
-                        <Image
-                            boxSize='100px'
-                            width='48px'
-                            height='48px'
-                            borderRadius='10px'
-                            objectFit='cover'
-                            src='/4.png'
-                            alt='Desarrollo sostenible'
-                        />
-                        <Image
-                            boxSize='100px'
-                            width='48px'
-                            height='48px'
-                            borderRadius='10px'
-                            objectFit='cover'
-                            src='/6.png'
-                            alt='Desarrollo sostenible'
-                        />
-                        <Image
-                            boxSize='100px'
-                            width='48px'
-                            height='48px'
-                            borderRadius='10px'
-                            objectFit='cover'
-                            src='/7.png'
-                            alt='Desarrollo sostenible'
-                        />
+                    <Stack flexFlow="wrap">
+                        {sdgs.map((sdg) => {
+                            const matchedOds = ods.find((o) => o.id === sdg.id);
+
+                            return matchedOds ? (
+                                <Link
+                                    key={sdg.id}
+                                    href={matchedOds.link}
+                                    isExternal
+                                    _hover={{ opacity: 0.8 }}
+                                >
+                                    <Image
+                                        src={`/ods/${sdg.id}.png`}
+                                        alt={matchedOds.name}
+                                        boxSize="48px"
+                                        objectFit="cover"
+                                        borderRadius="10px"
+                                    />
+                                </Link>
+                            ) : null;
+                        })}
                     </Stack>
                 </CardBody>
             </Card>
