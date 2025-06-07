@@ -140,29 +140,35 @@ const Details = () => {
                 </CardHeader>
             </Card>
             <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
-                <CardHeader>
-                    <Heading
-                        fontSize='xl'
-                        color="secondary.default"
-                        dangerouslySetInnerHTML={{ __html: description }}
-                    ></Heading>
-                    <Divider orientation='horizontal' marginTop='10px' />
-                </CardHeader>
-                <CardBody>
-                    <Box>
-                        <Heading fontSize='xl' color='primary.default'>
-                            Sobre nosotros:
-                        </Heading>
-                    </Box>
-                    <Text pt='2' fontSize='sm'>
-                        {entity.about_us}
-                    </Text>
-                </CardBody>
+                {description &&
+                    <CardHeader>
+                        <Heading
+                            fontSize='xl'
+                            color="secondary.default"
+                            dangerouslySetInnerHTML={{ __html: description }}
+                        ></Heading>
+                        <Divider orientation='horizontal' marginTop='10px' />
+                    </CardHeader>
+                }
+                {entity.about_us &&
+                    <CardBody>
+                        <Box>
+
+                            <Heading fontSize='xl' color='primary.default'>
+                                Sobre nosotros:
+                            </Heading>
+
+                        </Box>
+                        <Text pt='2' fontSize='sm'>
+                            {entity.about_us}
+                        </Text>
+                    </CardBody>
+                }
             </Card>
             <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'>
                 <CardHeader>
                     <HStack spacing={2} align='center' justify='space-between'>
-                        <Heading fontSize='xl' color="secondary.default" >{entity.bussiness_name}</Heading>
+                        <Heading fontSize='xl' color="secondary.default" >{entity.bussiness_name ? entity.bussiness_name : ''}</Heading>
                         <Box display='flex' gap='10px' color="primary.default">
                             {entity.web_profile && (
                                 <Link href={entity.web_profile} isExternal>
@@ -195,10 +201,10 @@ const Details = () => {
                 </CardHeader>
                 <CardBody>
                     <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px'>
-                        <IoLocationSharp fontSize='2rem' color="primary.default" /> {entity.address}
+                        <IoLocationSharp fontSize='2rem' color="primary.default" /> {entity.address ? entity.address : 'No disponible'}
                     </Text>
                     <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px' >
-                        <LuHeartHandshake fontSize='2rem' color="primary.default" /> Tipo de organización: {entity.type.name}
+                        <LuHeartHandshake fontSize='2rem' color="primary.default" /> Tipo de organización: {entity.type.name? entity.type.name : 'No disponible'}
                     </Text>
                 </CardBody>
             </Card>
