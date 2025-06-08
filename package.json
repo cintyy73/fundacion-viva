@@ -17,6 +17,7 @@
     "axios": "^1.9.0",
     "framer-motion": "^12.12.1",
     "js-cookie": "^3.0.5",
+    "keen-slider": "^6.8.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.4",
