@@ -25,3 +25,8 @@ export const fetchProduct = async (id?: string): Promise<ProductWithSdgs> => {
     sdgs: sdgs.data.data,
   };
 };
+
+export const fetchProductsByPage = async (page = 1): Promise<Response<Product[]>> => {
+  const response = await api.get<Response<Product[]>>(`catalogs?page[number]=${page}`);
+  return response.data;
+};
