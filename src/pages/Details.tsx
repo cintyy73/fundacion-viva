@@ -1,11 +1,9 @@
 import { fetchProduct } from '@/service/product.service'
-// import ods from 'public/ods'
 import {
     Box,
     Button,
     Card,
     CardBody,
-    CardFooter,
     CardHeader,
     Container,
     Divider,
@@ -19,7 +17,7 @@ import {
     Text,
 } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { FaFacebookF, FaInstagram, FaLink, FaLinkedinIn, FaLongArrowAltLeft, FaYoutube } from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaLink, FaLinkedinIn, FaLongArrowAltLeft } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { IoLocationSharp } from 'react-icons/io5'
 import { LuHeartHandshake } from 'react-icons/lu'
@@ -42,11 +40,12 @@ const Details = () => {
             <Container
                 display='flex'
                 flexDirection='column'
-                maxWidth='1200px'
+                maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
                 gap='20px'
-                padding='20px'
+                padding='0px'
+                marginBottom='40px'
             >
-                <Box>
+                <Box margin='20px 0'>
                     <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
                         <FaLongArrowAltLeft /> Volver
                     </Button>
@@ -74,17 +73,17 @@ const Details = () => {
                     <CardHeader>
                         <HStack spacing={2} align='center' justify='space-between'>
                             <Skeleton height='15px' width='200px' />
-                            <Box display='flex' gap='10px' color="primary.default">
+                            <Box>
                                 <Skeleton height='15px' width='200px' />
                             </Box>
                         </HStack>
                         <Divider orientation='horizontal' marginTop='10px' />
                     </CardHeader>
                     <CardBody>
-                        <Box pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px'>
+                        <Box>
                             <Skeleton height='15px' width='300px' />
                         </Box>
-                        <Box pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px' >
+                        <Box>
                             <Skeleton height='15px' width='300px' />
                         </Box>
                     </CardBody>
@@ -95,7 +94,7 @@ const Details = () => {
                         <Divider orientation='horizontal' marginTop='10px' />
                     </CardHeader>
                     <CardBody>
-                        <Stack flexFlow='wrap' >
+                        <Stack>
                             <Skeleton height='15px' width='300px' />
                         </Stack>
                     </CardBody>
@@ -125,11 +124,12 @@ const Details = () => {
         <Container
             display='flex'
             flexDirection='column'
-            maxWidth='1200px'
+            maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
             gap='20px'
-            padding='20px'
+            padding='0px'
+            marginBottom='40px'
         >
-            <Box>
+            <Box margin='20px 0'>
                 <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
                     <FaLongArrowAltLeft /> Volver
                 </Button>
@@ -204,7 +204,7 @@ const Details = () => {
                         <IoLocationSharp fontSize='2rem' color="primary.default" /> {entity.address ? entity.address : 'No disponible'}
                     </Text>
                     <Text pt='2' fontSize='sm' display='flex' alignItems='center' gap='15px' >
-                        <LuHeartHandshake fontSize='2rem' color="primary.default" /> Tipo de organización: {entity.type.name? entity.type.name : 'No disponible'}
+                        <LuHeartHandshake fontSize='2rem' color="primary.default" /> Tipo de organización: {entity.type.name ? entity.type.name : 'No disponible'}
                     </Text>
                 </CardBody>
             </Card>
