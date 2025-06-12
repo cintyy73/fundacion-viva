@@ -3,7 +3,7 @@ import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
 import Card from "../components/Card";
 import { useQuery } from "@tanstack/react-query";
-import { fetchData, fetchProductsByPage } from "@/service/product.service";
+import { fetchProductsByPage } from "@/service/product.service";
 import { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
