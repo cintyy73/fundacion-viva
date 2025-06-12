@@ -5,6 +5,7 @@ import Card from "../components/Card";
 import { useQuery } from "@tanstack/react-query";
 import { fetchData, fetchProductsByPage } from "@/service/product.service";
 import { useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const Home = () => {
 
@@ -18,7 +19,7 @@ const Home = () => {
   const { data, isLoading, error, isFetching } = useQuery({
     queryKey: ['catalogs', page],
     queryFn: () => fetchProductsByPage(page),
-    keepPreviousData: true,
+    // keepPreviousData: true,
   });
 
   if (error) return <div>Error al cargar productos</div>;
@@ -48,21 +49,19 @@ const Home = () => {
             ))}
         </Masonry>
       </ResponsiveMasonry>
-      
-      
-      <HStack mt={6} spacing={4} justify="center">
+      <HStack mt={6} spacing={4} justify="center" margin='70px 0px'>
         <Button
           onClick={() => setPage((prev) => prev - 1)}
           isDisabled={!hasPrev || page === 1}
         >
-          Página anterior
+          <FaArrowLeft />
         </Button>
-        <Box>Página {data?.meta?.current_page}</Box>
+        <Box>{data?.meta?.current_page}</Box>
         <Button
           onClick={() => setPage((prev) => prev + 1)}
           isDisabled={!hasNext}
         >
-          Página siguiente
+          <FaArrowRight />
         </Button>
       </HStack>
 
