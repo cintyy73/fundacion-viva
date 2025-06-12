@@ -20,6 +20,7 @@ const Home = () => {
     queryKey: ['catalogs', page],
     queryFn: () => fetchProductsByPage(page),
     // keepPreviousData: true,
+    refetchOnWindowFocus: false,
   });
 
   if (error) return <div>Error al cargar productos</div>;
