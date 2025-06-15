@@ -63,6 +63,7 @@ const Banner = () => {
           flex="none"
           w="full"
           h="full"
+          borderRadius="10px"
         >
           <Image
             src={src}
