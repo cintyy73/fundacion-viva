@@ -23,7 +23,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ods } from '@/utils/constant'
 // import { Map } from '../components/Map/index'
 import CardSkeletonDetail from '@/components/CardSkeletonDetail'
-import Map from '@/components/Map/Index'
+import Map from '@/components/map/Map'
 
 const Details = () => {
 
