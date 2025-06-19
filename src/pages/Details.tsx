@@ -94,7 +94,10 @@ const Details = () => {
                     <Heading fontSize='xl' color="secondary.default">{title}</Heading>
                 </CardHeader>
             </Card>
-            <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
+            <Card
+                boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'
+                p='27px'
+            >
                 {description &&
                     <CardHeader>
                         <Heading
