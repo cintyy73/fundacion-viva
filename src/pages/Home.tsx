@@ -4,7 +4,7 @@ import Masonry from "react-responsive-masonry";
 import Card from "../components/Card";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductsByPage } from "@/service/product.service";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Map from "../components/Map/Index";
 import { Product } from "@/typeses";

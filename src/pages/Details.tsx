@@ -36,6 +36,8 @@ const Details = () => {
         enabled: !!id,
     });
 
+    window.scrollTo({ top: 0, behavior: "smooth" })
+
     if (isLoading) return CardSkeletonDetail();
 
     if (error || !data) {
