@@ -4,7 +4,7 @@ import Masonry from "react-responsive-masonry";
 import Card from "../components/Card";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductsByPage } from "@/service/product.service";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Map from "../components/Map/Index";
 import { Product } from "@/typeses";
@@ -13,6 +13,10 @@ import Banner from "@/components/Banner";
 const Home = () => {
 
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
 
   // const { data, isLoading, error } = useQuery({
   //   queryKey: ['catalogs'],
@@ -48,10 +52,10 @@ const Home = () => {
     <Box maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }} m="20px auto">
       <Banner />
       {productsEntities.length > 0 && (
-      <Box borderRadius="xl" overflow="hidden" my={6}>
-        <Map markers={productsEntities} />
-      </Box>
-    )}
+        <Box borderRadius="xl" overflow="hidden" my={6}>
+          <Map markers={productsEntities} />
+        </Box>
+      )}
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
         <Masonry gutter="15px">
           {isLoading || isFetching
@@ -67,7 +71,7 @@ const Home = () => {
             ))}
         </Masonry>
       </ResponsiveMasonry>
-      
+
       <HStack mt={6} spacing={4} justify="center" margin='70px 0px'>
         <Button
           onClick={() => setPage((prev) => prev - 1)}
