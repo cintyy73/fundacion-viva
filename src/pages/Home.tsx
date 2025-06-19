@@ -4,25 +4,25 @@ import Masonry from "react-responsive-masonry";
 import Card from "../components/Card";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductsByPage } from "@/service/product.service";
-import { useState } from "react";
+import { useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Map from "../components/Map";
+import Map from "../components/map/Map";
 import { Product } from "@/types";
 import Banner from "@/components/Banner";
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
 
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get("pagina") || "1");
 
-  // const { data, isLoading, error } = useQuery({
-  //   queryKey: ['catalogs'],
-  //   queryFn: fetchData,
-  // });
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
 
   const { data, isLoading, error, isFetching } = useQuery({
     queryKey: ['catalogs', page],
     queryFn: () => fetchProductsByPage(page),
-    // keepPreviousData: true,
     refetchOnWindowFocus: false,
   });
 
@@ -48,10 +48,10 @@ const Home = () => {
     <Box maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }} m="20px auto">
       <Banner />
       {productsEntities.length > 0 && (
-      <Box borderRadius="xl" overflow="hidden" my={6}>
-        <Map markers={productsEntities} />
-      </Box>
-    )}
+        <Box borderRadius="xl" overflow="hidden" my={6}>
+          <Map markers={productsEntities} />
+        </Box>
+      )}
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
         <Masonry gutter="15px">
           {isLoading || isFetching
@@ -67,24 +67,22 @@ const Home = () => {
             ))}
         </Masonry>
       </ResponsiveMasonry>
-      
+
       <HStack mt={6} spacing={4} justify="center" margin='70px 0px'>
         <Button
-          onClick={() => setPage((prev) => prev - 1)}
+          onClick={() => setSearchParams({ pagina: String(page - 1) })}
           isDisabled={!hasPrev || page === 1}
         >
           <FaArrowLeft />
         </Button>
-        <Box>{data?.meta?.current_page}</Box>
+        <Box>{page}</Box>
         <Button
-          onClick={() => setPage((prev) => prev + 1)}
+          onClick={() => setSearchParams({ pagina: String(page + 1) })}
           isDisabled={!hasNext}
         >
           <FaArrowRight />
         </Button>
       </HStack>
-
-
     </Box>
   );
 };
