@@ -26,7 +26,7 @@ if (isLoading) return <CardSkeleton />;
       
         {data?.photo_path && (
         <Image
-          src="./public/imagenEjemploCard.png"
+          src="./imagenEjemploCard.png"
           borderRadius="10px 10px 0 0"
         />
       )}

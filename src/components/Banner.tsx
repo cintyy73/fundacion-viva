@@ -3,7 +3,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useEffect, useRef } from "react";
 
-const images = ["/fonselp1.png", "/fonselp2.png"];
+const images = ["assets/banner.jpg" ,"assets/fonselp1.png", "assets/fonselp2.png"];
 
 const Banner = () => {
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
