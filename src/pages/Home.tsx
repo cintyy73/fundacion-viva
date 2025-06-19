@@ -9,24 +9,20 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Map from "../components/Map/Index";
 import { Product } from "@/typeses";
 import Banner from "@/components/Banner";
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
 
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get("pagina") || "1");
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
 
-  // const { data, isLoading, error } = useQuery({
-  //   queryKey: ['catalogs'],
-  //   queryFn: fetchData,
-  // });
-
   const { data, isLoading, error, isFetching } = useQuery({
     queryKey: ['catalogs', page],
     queryFn: () => fetchProductsByPage(page),
-    // keepPreviousData: true,
     refetchOnWindowFocus: false,
   });
 
@@ -74,21 +70,19 @@ const Home = () => {
 
       <HStack mt={6} spacing={4} justify="center" margin='70px 0px'>
         <Button
-          onClick={() => setPage((prev) => prev - 1)}
+          onClick={() => setSearchParams({ pagina: String(page - 1) })}
           isDisabled={!hasPrev || page === 1}
         >
           <FaArrowLeft />
         </Button>
-        <Box>{data?.meta?.current_page}</Box>
+        <Box>{page}</Box>
         <Button
-          onClick={() => setPage((prev) => prev + 1)}
+          onClick={() => setSearchParams({ pagina: String(page + 1) })}
           isDisabled={!hasNext}
         >
           <FaArrowRight />
         </Button>
       </HStack>
-
-
     </Box>
   );
 };
