@@ -53,6 +53,21 @@ const Details = () => {
 
     const { title, description, entity, sdgs } = data;
 
+    const productsEntity = [
+        {
+            id: entity?.id || 0,
+            bussinessName: entity?.bussiness_name,
+            fantasyName: entity?.fantasy_name,
+            lat: entity?.location_lat || 0,
+            lng: entity?.location_lng || 0,
+        },
+    ];
+
+    const center = {
+        lat: entity?.location_lat || 0,
+        lng: entity?.location_lng || 0,
+    };
+
     console.log('data', data);
 
     return (
@@ -64,10 +79,10 @@ const Details = () => {
             padding='0px'
             marginBottom='40px'
         >
-            {entity.location_lat && (
-                <Box borderRadius="xl" overflow="hidden" my={6}>
-                    <Map markers={productsEntities} />
-                </Box>
+            {location ? (
+                <Map markers={productsEntity} center={center} />
+            ) : (
+                <Text>No se pudo cargar la ubicación del mapa</Text>
             )}
             <Box margin='20px 0'>
                 <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
