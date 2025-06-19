@@ -6,10 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProductsByPage } from "@/service/product.service";
 import { useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Map from "../components/map/Map";
 import { Product } from "@/types";
 import Banner from "@/components/Banner";
 import { useSearchParams } from "react-router-dom";
+import Map from "@/components/Map/Index";
 
 const Home = () => {
 
