@@ -7,7 +7,7 @@ import { fetchProductsByPage } from "@/service/product.service";
 import { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Map from "../components/Map/Index";
-import { Product } from "@/types";
+import { Product } from "@/typeses";
 import Banner from "@/components/Banner";
 
 const Home = () => {

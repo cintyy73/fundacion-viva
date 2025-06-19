@@ -11,8 +11,6 @@ import {
     HStack,
     Image,
     Link,
-    Skeleton,
-    SkeletonText,
     Stack,
     Text,
 } from '@chakra-ui/react'
@@ -23,6 +21,9 @@ import { IoLocationSharp } from 'react-icons/io5'
 import { LuHeartHandshake } from 'react-icons/lu'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ods } from '@/utils/constant'
+// import { Map } from '../components/Map/index'
+import CardSkeletonDetail from '@/components/CardSkeletonDetail'
+import Map from '@/components/Map/Index'
 
 const Details = () => {
 
@@ -35,75 +36,7 @@ const Details = () => {
         enabled: !!id,
     });
 
-    const CardSkeleton = () => {
-        return (
-            <Container
-                display='flex'
-                flexDirection='column'
-                maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
-                gap='20px'
-                padding='0px'
-                marginBottom='40px'
-            >
-                <Box margin='20px 0'>
-                    <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
-                        <FaLongArrowAltLeft /> Volver
-                    </Button>
-                </Box>
-                <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
-                    <CardHeader>
-                        <Skeleton height='30px' />
-                    </CardHeader>
-                </Card>
-                <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
-                    <CardHeader>
-                        <Skeleton height='20px' />
-                        <Divider orientation='horizontal' marginTop='10px' />
-                    </CardHeader>
-                    <CardBody>
-                        <Box>
-                            <Skeleton height='15px' width='200px' />
-                        </Box>
-                        <Box marginTop='10px'>
-                            <SkeletonText noOfLines={3} spacing="3" />
-                        </Box>
-                    </CardBody>
-                </Card>
-                <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'>
-                    <CardHeader>
-                        <HStack spacing={2} align='center' justify='space-between'>
-                            <Skeleton height='15px' width='200px' />
-                            <Box>
-                                <Skeleton height='15px' width='200px' />
-                            </Box>
-                        </HStack>
-                        <Divider orientation='horizontal' marginTop='10px' />
-                    </CardHeader>
-                    <CardBody>
-                        <Box>
-                            <Skeleton height='15px' width='300px' />
-                        </Box>
-                        <Box>
-                            <Skeleton height='15px' width='300px' />
-                        </Box>
-                    </CardBody>
-                </Card>
-                <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'>
-                    <CardHeader>
-                        <Skeleton height='15px' width='200px' />
-                        <Divider orientation='horizontal' marginTop='10px' />
-                    </CardHeader>
-                    <CardBody>
-                        <Stack>
-                            <Skeleton height='15px' width='300px' />
-                        </Stack>
-                    </CardBody>
-                </Card>
-            </Container>
-        );
-    };
-
-    if (isLoading) return <CardSkeleton />;
+    if (isLoading) return CardSkeletonDetail();
 
     if (error || !data) {
         return (
@@ -120,6 +53,8 @@ const Details = () => {
 
     const { title, description, entity, sdgs } = data;
 
+    console.log('data', data);
+
     return (
         <Container
             display='flex'
@@ -129,6 +64,11 @@ const Details = () => {
             padding='0px'
             marginBottom='40px'
         >
+            {entity.location_lat && (
+                <Box borderRadius="xl" overflow="hidden" my={6}>
+                    <Map markers={productsEntities} />
+                </Box>
+            )}
             <Box margin='20px 0'>
                 <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
                     <FaLongArrowAltLeft /> Volver
