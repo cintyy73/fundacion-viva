@@ -26,8 +26,8 @@ const Header = () => {
                         justifyContent={{ base: 'space-between' }}
                         gap='20px'
                     >
-                        <Link href="https://comprasocial.fonselp.org/" isExternal>
-                            <Image height="40px" src="/logo.png" alt="Fonselp" />
+                        <Link href="https://www.fundacion-viva.org/" isExternal>
+                            <Image height="40px" src="/logo.png" alt="Fundación Viva" />
                         </Link>
                         <Link
                             color="secondary.default"
