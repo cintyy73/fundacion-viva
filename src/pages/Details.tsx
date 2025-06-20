@@ -21,7 +21,6 @@ import { IoLocationSharp } from 'react-icons/io5'
 import { LuHeartHandshake } from 'react-icons/lu'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ods } from '@/utils/constant'
-// import { Map } from '../components/Map/index'
 import CardSkeletonDetail from '@/components/CardSkeletonDetail'
 import Map from '@/components/map/Map'
 
