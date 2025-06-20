@@ -11,9 +11,7 @@ import Banner from "@/components/Banner";
 import { useSearchParams } from "react-router-dom";
 import Map from "@/components/map/Map";
 
-
 const Home = () => {
-
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("pagina") || "1");
 
@@ -22,7 +20,7 @@ const Home = () => {
   }, [page]);
 
   const { data, isLoading, error, isFetching } = useQuery({
-    queryKey: ['catalogs', page],
+    queryKey: ["catalogs", page],
     queryFn: () => fetchProductsByPage(page),
     refetchOnWindowFocus: false,
   });
@@ -35,7 +33,7 @@ const Home = () => {
   const hasNext = Boolean(data?.links?.next);
   const hasPrev = Boolean(data?.links?.prev);
 
-  console.log('data', data);
+  console.log("data", data);
 
   const productsEntities = products?.map((product: Product) => ({
     id: product.entity.id,
@@ -46,7 +44,10 @@ const Home = () => {
   }));
 
   return (
-    <Box maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }} m="20px auto">
+    <Box
+      maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
+      m="20px auto"
+    >
       <Banner />
       {productsEntities.length > 0 && (
         <Box borderRadius="xl" overflow="hidden" my={6}>
@@ -57,19 +58,23 @@ const Home = () => {
         <Masonry gutter="15px">
           {isLoading || isFetching
             ? Array.from({ length: skeletonCount }).map((_, i) => (
-              <Box key={i} display="flex" justifyContent="space-around">
-                <Card isLoading />
-              </Box>
-            ))
+                <Box key={i} display="flex" justifyContent="space-around">
+                  <Card isLoading />
+                </Box>
+              ))
             : products.map((product) => (
-              <Box key={product.id} display="flex" justifyContent="space-around">
-                <Card data={product} />
-              </Box>
-            ))}
+                <Box
+                  key={product.id}
+                  display="flex"
+                  justifyContent="space-around"
+                >
+                  <Card data={product} />
+                </Box>
+              ))}
         </Masonry>
       </ResponsiveMasonry>
 
-      <HStack mt={6} spacing={4} justify="center" margin='70px 0px'>
+      <HStack mt={6} spacing={4} justify="center" margin="70px 0px">
         <Button
           onClick={() => setSearchParams({ pagina: String(page - 1) })}
           isDisabled={!hasPrev || page === 1}

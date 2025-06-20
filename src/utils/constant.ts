@@ -85,5 +85,3 @@ export const ods = [
     link: "https://www.un.org/sustainabledevelopment/es/globalpartnerships/",
   },
 ];
-
-

@@ -34,19 +34,39 @@ const Footer = () => {
       </Box>
       <Stack spacing={4} align="center" textAlign="center">
         <HStack spacing={6}>
-          <Link href="https://www.facebook.com/FundacionVivaBo" isExternal _hover={{ color: "#C0E83E" }}>
+          <Link
+            href="https://www.facebook.com/FundacionVivaBo"
+            isExternal
+            _hover={{ color: "#C0E83E" }}
+          >
             <Icon as={FaFacebook} boxSize={8} />
           </Link>
-          <Link href="https://www.instagram.com/fundacion.viva/" isExternal _hover={{ color: "#C0E83E" }}>
+          <Link
+            href="https://www.instagram.com/fundacion.viva/"
+            isExternal
+            _hover={{ color: "#C0E83E" }}
+          >
             <Icon as={FaInstagram} boxSize={8} />
           </Link>
-          <Link href="https://x.com/FundacionVivaBo" isExternal _hover={{ color: "#C0E83E" }}>
+          <Link
+            href="https://x.com/FundacionVivaBo"
+            isExternal
+            _hover={{ color: "#C0E83E" }}
+          >
             <Icon as={FaTwitter} boxSize={8} />
           </Link>
-          <Link href="https://www.linkedin.com/company/fundaci%C3%B3nviva/" isExternal _hover={{ color: "#C0E83E" }}>
+          <Link
+            href="https://www.linkedin.com/company/fundaci%C3%B3nviva/"
+            isExternal
+            _hover={{ color: "#C0E83E" }}
+          >
             <Icon as={FaLinkedin} boxSize={8} />
           </Link>
-          <Link href="https://www.youtube.com/@FundEstasVivo" isExternal _hover={{ color: "#C0E83E" }}>
+          <Link
+            href="https://www.youtube.com/@FundEstasVivo"
+            isExternal
+            _hover={{ color: "#C0E83E" }}
+          >
             <Icon as={FaYoutube} boxSize={8} />
           </Link>
         </HStack>

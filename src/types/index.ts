@@ -30,7 +30,7 @@ export interface Product {
   product_type: string;
   networks: Network[];
   entity: Entity;
-  images:string[];
+  images: string[];
 }
 
 export interface ProductWithSdgs extends Product {
@@ -118,7 +118,6 @@ export interface Filter {
 export interface Meta extends Filter {
   page: number;
 }
-
 
 export interface CatalogsFilters {
   product_types: string[];
