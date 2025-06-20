@@ -12,10 +12,13 @@ import {
     Stack 
 } from "@chakra-ui/react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function CardSkeletonDetail() {
+
+    const navigate = useNavigate();
+
     return (
         <Container
             display='flex'
@@ -26,7 +29,7 @@ export default function CardSkeletonDetail() {
             marginBottom='40px'
         >
             <Box margin='20px 0'>
-                <Button onClick={() => Navigate(-1)} bg='primary.default' size='xs' gap='10px'>
+                <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
                     <FaLongArrowAltLeft /> Volver
                 </Button>
             </Box>

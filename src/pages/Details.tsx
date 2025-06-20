@@ -21,8 +21,9 @@ import { IoLocationSharp } from 'react-icons/io5'
 import { LuHeartHandshake } from 'react-icons/lu'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ods } from '@/utils/constant'
-import CardSkeletonDetail from '@/components/CardSkeletonDetail'
 import Map from '@/components/map/Map'
+import CardSkeletonDetail from '@/components/CardSkeletonDetail'
+import { useEffect } from 'react'
 
 const Details = () => {
 
@@ -35,9 +36,14 @@ const Details = () => {
         enabled: !!id,
     });
 
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
-    if (isLoading) return CardSkeletonDetail();
+    // window.scrollTo({ top: 0, behavior: "smooth" })
+
+    // if (isLoading) return CardSkeletonDetail();
+    if (isLoading) return <CardSkeletonDetail />;
 
     if (error || !data) {
         return (
