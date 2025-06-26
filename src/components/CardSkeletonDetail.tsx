@@ -1,15 +1,15 @@
-import { 
-    Box, 
-    Button, 
-    Card, 
-    CardBody, 
-    CardHeader, 
-    Container, 
-    Divider, 
-    HStack, 
-    Skeleton, 
-    SkeletonText, 
-    Stack 
+import {
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Container,
+  Divider,
+  HStack,
+  Skeleton,
+  SkeletonText,
+  Stack,
 } from "@chakra-ui/react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

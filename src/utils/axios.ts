@@ -2,7 +2,6 @@ import { Access } from "@/types";
 import axios, { AxiosInstance } from "axios";
 import Cookies from "js-cookie";
 
-
 const { VITE_API_URL, VITE_API_CLIENT_SECRET, VITE_API_CLIENT_ID } = import.meta
   .env as Record<string, string>;
 
@@ -34,7 +33,7 @@ api.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 /**
@@ -60,5 +59,3 @@ export async function getAccessToken(): Promise<string> {
 
   return data.access_token;
 }
-
-

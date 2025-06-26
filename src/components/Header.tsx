@@ -1,5 +1,4 @@
-import { Box, Container, HStack, Image, Link } from "@chakra-ui/react"
-
+import { Box, Container, HStack, Image, Link } from "@chakra-ui/react";
 
 const Header = () => {
     return (
@@ -70,4 +69,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default Header;

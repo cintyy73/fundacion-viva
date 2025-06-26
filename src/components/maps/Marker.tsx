@@ -12,7 +12,9 @@ interface MarkerProps {
 }
 
 export const Marker = ({ entity, map }: MarkerProps) => {
-  const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
+  const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(
+    null,
+  );
   const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
   const [open, setOpen] = useState(false);
 
