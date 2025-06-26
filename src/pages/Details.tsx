@@ -1,34 +1,29 @@
 import { fetchProduct } from "@/service/product.service";
 import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Container,
-  Divider,
-  Heading,
-  HStack,
-  Image,
-  Link,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLink,
-  FaLinkedinIn,
-  FaLongArrowAltLeft,
-} from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { IoLocationSharp } from "react-icons/io5";
-import { LuHeartHandshake } from "react-icons/lu";
-import { useNavigate, useParams } from "react-router-dom";
-import { ods } from "@/utils/constant";
-import CardSkeletonDetail from "@/components/CardSkeletonDetail";
-import Map from "@/components/maps/Map";
+    Box,
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    Container,
+    Divider,
+    Heading,
+    HStack,
+    Image,
+    Link,
+    Stack,
+    Text,
+} from '@chakra-ui/react'
+import { useQuery } from '@tanstack/react-query'
+import { FaFacebookF, FaInstagram, FaLink, FaLinkedinIn, FaLongArrowAltLeft } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
+import { IoLocationSharp } from 'react-icons/io5'
+import { LuHeartHandshake } from 'react-icons/lu'
+import { useNavigate, useParams } from 'react-router-dom'
+import { ods } from '@/utils/constant'
+import Map from '@/components/map/Map'
+import CardSkeletonDetail from '@/components/CardSkeletonDetail'
+import { useEffect } from 'react'
 
 const Details = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,9 +35,9 @@ const Details = () => {
     enabled: !!id,
   });
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" })
 
-  if (isLoading) return CardSkeletonDetail();
+    if (isLoading) return CardSkeletonDetail();
 
   if (error || !data) {
     return (
