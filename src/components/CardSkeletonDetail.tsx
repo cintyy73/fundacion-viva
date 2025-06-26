@@ -33,6 +33,11 @@ export default function CardSkeletonDetail() {
                     <FaLongArrowAltLeft /> Volver
                 </Button>
             </Box>
+            <Box margin='20px 0'>
+                <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
+                    <FaLongArrowAltLeft /> Volver
+                </Button>
+            </Box>
             <Card boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' >
                 <CardHeader>
                     <Skeleton height='30px' />
