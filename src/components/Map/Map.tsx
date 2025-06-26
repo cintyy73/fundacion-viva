@@ -1,7 +1,6 @@
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Marker } from "./Marker";
-
 
 const containerStyle = {
   width: "100%",
@@ -31,12 +30,10 @@ const defaultCenter = { lat: -33.1185, lng: -59.5408 };
 
 const Map: FC<GoogleMapProps> = ({ markers, styles, center = defaultCenter }) => {
   const mapContainerStyle = styles || containerStyle;
-  const [map, setMap] = useState<google.maps.Map | null>(null);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: 'AIzaSyBhRHxxf25ibvleBZsIuDPDycfn9lCLxZ0',
-    libraries: ['marker'],
   });
 
   if (!isLoaded) return null;
@@ -46,11 +43,10 @@ const Map: FC<GoogleMapProps> = ({ markers, styles, center = defaultCenter }) =>
       mapContainerStyle={mapContainerStyle}
       center={center}
       zoom={5}
-      onLoad={(mapInstance) => setMap(mapInstance)}
     >
       {!!markers?.length &&
         markers.map((marker) => (
-          <Marker key={`marker-${marker.id}`} entity={marker} map={map} />
+          <Marker key={`marker-${marker.id}`} entity={marker} />
         ))}
     </GoogleMap>
   );
