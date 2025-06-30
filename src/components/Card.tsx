@@ -19,24 +19,26 @@ interface CardProps {
   isLoading?: boolean;
 }
 const Card = ({ data, isLoading = false }: CardProps) => {
-  if (isLoading) return <CardSkeleton />;
+if (isLoading) return <CardSkeleton />;
 
   return (
     <ChakraCard borderRadius="10px" overflow="hidden">
-      {data?.photo_path && (
-        <Image src="./imagenEjemploCard.png" borderRadius="10px 10px 0 0" />
+      
+        {data?.photo_path && (
+        <Image
+          src="./imagenEjemploCard.png"
+          borderRadius="10px 10px 0 0"
+        />
       )}
 
       <CardHeader>
-        <Text>{data?.title}</Text>
-        <Divider border="1px" />
+           <Text>{data?.title}</Text>
+            <Divider border="1px" />
       </CardHeader>
 
-      <CardBody>
-        {" "}
-        <Text
-          dangerouslySetInnerHTML={{ __html: data?.short_description || "" }}
-        />
+      <CardBody>          <Text
+            dangerouslySetInnerHTML={{ __html: data?.short_description || "" }}
+          />
       </CardBody>
 
       <CardFooter
@@ -44,16 +46,16 @@ const Card = ({ data, isLoading = false }: CardProps) => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Text as="a" href={data?.entity?.web_profile}>
-          {data?.entity?.fantasy_name}
-        </Text>
-        <Button as={NavLink} to={`/details/${data?.id}`}>
-          Ver más
-        </Button>
+            <Text as="a" href={data?.entity?.web_profile}>
+              {data?.entity?.fantasy_name}
+            </Text>
+            <Button as={NavLink} to={`/details/${data?.id}`}>
+              Ver más
+            </Button>
       </CardFooter>
-      <Text textAlign="center" py={2}>
-        {data?.entity?.type?.name}
-      </Text>
+        <Text textAlign="center" py={2}>
+          {data?.entity?.type?.name}
+        </Text>
     </ChakraCard>
   );
 };
@@ -72,11 +74,7 @@ const CardSkeleton = () => {
         <SkeletonText noOfLines={3} spacing="3" />
       </CardBody>
 
-      <CardFooter
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <CardFooter display="flex" justifyContent="space-between" alignItems="center">
         <Skeleton height="20px" width="40%" />
         <Skeleton height="32px" width="60px" />
       </CardFooter>

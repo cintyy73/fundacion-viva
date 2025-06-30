@@ -1,4 +1,4 @@
-import { Box, Button, HStack } from "@chakra-ui/react";
+import { Box, Button, HStack, Skeleton } from "@chakra-ui/react";
 import { ResponsiveMasonry } from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
 import Card from "../components/Card";
@@ -33,8 +33,6 @@ const Home = () => {
   const hasNext = Boolean(data?.links?.next);
   const hasPrev = Boolean(data?.links?.prev);
 
-  console.log("data", data);
-
   const productsEntities = products?.map((product: Product) => ({
     id: product.entity.id,
     bussinessName: product.entity.bussiness_name,
@@ -48,21 +46,37 @@ const Home = () => {
       maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
       m="20px auto"
     >
-      <Banner />
-      {productsEntities.length > 0 && (
-        <Box borderRadius="xl" overflow="hidden" my={6}>
-          <Map markers={productsEntities} />
-        </Box>
-      )}
-      <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
-        <Masonry gutter="15px">
-          {isLoading || isFetching
-            ? Array.from({ length: skeletonCount }).map((_, i) => (
+      {isLoading || isFetching ? (
+        <>
+          <Box mb={6}>
+            <Skeleton height="200px" borderRadius="xl" mb={4} />
+            <Skeleton height="200px" borderRadius="xl" mb={6} />
+          </Box>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}
+          >
+            <Masonry gutter="15px">
+              {Array.from({ length: skeletonCount }).map((_, i) => (
                 <Box key={i} display="flex" justifyContent="space-around">
                   <Card isLoading />
                 </Box>
-              ))
-            : products.map((product) => (
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+        </>
+      ) : (
+        <>
+          <Banner />
+          {productsEntities.length > 0 && (
+            <Box borderRadius="xl" overflow="hidden" my={6}>
+              <Map markers={productsEntities} />
+            </Box>
+          )}
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}
+          >
+            <Masonry gutter="15px">
+              {products.map((product) => (
                 <Box
                   key={product.id}
                   display="flex"
@@ -71,9 +85,10 @@ const Home = () => {
                   <Card data={product} />
                 </Box>
               ))}
-        </Masonry>
-      </ResponsiveMasonry>
-
+            </Masonry>
+          </ResponsiveMasonry>
+        </>
+      )}
       <HStack mt={6} spacing={4} justify="center" margin="70px 0px">
         <Button
           onClick={() => setSearchParams({ pagina: String(page - 1) })}
