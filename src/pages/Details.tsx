@@ -29,7 +29,7 @@ const Details = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["product", id],
     queryFn: () => fetchProduct(id),
     enabled: !!id,
