@@ -22,8 +22,8 @@ import { LuHeartHandshake } from 'react-icons/lu'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ods } from '@/utils/constant'
 import Map from '@/components/map/Map'
-import CardSkeletonDetail from '@/components/CardSkeletonDetail'
-import { useEffect } from 'react'
+// import CardSkeletonDetail from '@/components/CardSkeletonDetail'
+// import { useEffect } from 'react'
 
 const Details = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,11 +35,11 @@ const Details = () => {
     enabled: !!id,
   });
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }, []);
+    // useEffect(() => {
+    //     window.scrollTo({ top: 0, behavior: "smooth" });
+    // }, []);
 
-    if (isLoading) return CardSkeletonDetail();
+    // if (isLoading) return CardSkeletonDetail();
 
   if (error || !data) {
     return (
