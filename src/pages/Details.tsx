@@ -22,14 +22,14 @@ import { LuHeartHandshake } from 'react-icons/lu'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ods } from '@/utils/constant'
 import Map from '@/components/map/Map'
-// import CardSkeletonDetail from '@/components/CardSkeletonDetail'
+import CardSkeletonDetail from '@/components/CardSkeletonDetail'
 // import { useEffect } from 'react'
 
 const Details = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const { data, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["product", id],
     queryFn: () => fetchProduct(id),
     enabled: !!id,
@@ -39,7 +39,7 @@ const Details = () => {
     //     window.scrollTo({ top: 0, behavior: "smooth" });
     // }, []);
 
-    // if (isLoading) return CardSkeletonDetail();
+    if (isLoading) return <CardSkeletonDetail />;
 
   if (error || !data) {
     return (
