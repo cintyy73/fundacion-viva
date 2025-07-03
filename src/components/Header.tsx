@@ -1,4 +1,5 @@
 import { Box, Container, HStack, Image, Link } from "@chakra-ui/react";
+import { Link as RouterLink } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -25,9 +26,9 @@ const Header = () => {
                         justifyContent={{ base: 'space-between' }}
                         gap='20px'
                     >
-                        <Link href="https://www.fundacion-viva.org/" isExternal>
+                        <RouterLink to="/">
                             <Image height="40px" src="/logo.png" alt="Fundación Viva" />
-                        </Link>
+                        </RouterLink>
                         <Link
                             color="secondary.default"
                             href="https://www.fundacion-viva.org/" isExternal
