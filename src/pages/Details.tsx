@@ -1,18 +1,18 @@
 import { fetchProduct } from "@/service/product.service";
 import {
-    Box,
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    Container,
-    Divider,
-    Heading,
-    HStack,
-    Image,
-    Link,
-    Stack,
-    Text,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Container,
+  Divider,
+  Heading,
+  HStack,
+  Image,
+  Link,
+  Stack,
+  Text,
 } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import { FaFacebookF, FaInstagram, FaLink, FaLinkedinIn, FaLongArrowAltLeft } from 'react-icons/fa'
@@ -23,7 +23,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ods } from '@/utils/constant'
 import Map from '@/components/map/Map'
 import CardSkeletonDetail from '@/components/CardSkeletonDetail'
-// import { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const Details = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,11 +35,11 @@ const Details = () => {
     enabled: !!id,
   });
 
-    // useEffect(() => {
-    //     window.scrollTo({ top: 0, behavior: "smooth" });
-    // }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id]);
 
-    if (isLoading) return <CardSkeletonDetail />;
+  if (isLoading) return <CardSkeletonDetail />;
 
   if (error || !data) {
     return (
