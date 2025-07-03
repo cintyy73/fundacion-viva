@@ -1,15 +1,15 @@
 import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Container,
-  Divider,
-  HStack,
-  Skeleton,
-  SkeletonText,
-  Stack,
+    Box,
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    Container,
+    Divider,
+    HStack,
+    Skeleton,
+    SkeletonText,
+    Stack,
 } from "@chakra-ui/react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,9 @@ export default function CardSkeletonDetail() {
             padding='0px'
             marginBottom='40px'
         >
+            <Card borderRadius="10px" margin='20px 0'>
+                <Skeleton height="150px" borderRadius="10px" />
+            </Card>
             <Box margin='20px 0'>
                 <Button onClick={() => navigate(-1)} bg='primary.default' size='xs' gap='10px'>
                     <FaLongArrowAltLeft /> Volver
