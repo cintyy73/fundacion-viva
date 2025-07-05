@@ -89,11 +89,7 @@ const Details = () => {
       )}
       <Box margin="20px 0">
         <Button
-          onClick={() => navigate(-1)}
-          bg="primary.default"
-          size="xs"
-          gap="10px"
-        >
+          onClick={() => navigate(-1)}>
           <FaLongArrowAltLeft /> Volver
         </Button>
       </Box>

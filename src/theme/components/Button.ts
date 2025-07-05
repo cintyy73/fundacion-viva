@@ -5,8 +5,10 @@ export const Button: ComponentStyleConfig = {
   sizes: {},
   variants: {
     primary: () => ({
-      bg: "#2daae2",
+      bg: "primary.default",
       borderRadius: "md",
+      size: "xs",
+      gap: "10px",
       color: "white",
       boxShadow: "md",
       _hover: {
