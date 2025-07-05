@@ -10,6 +10,7 @@ import { Product } from "@/types";
 import Banner from "@/components/Banner";
 import { useSearchParams } from "react-router-dom";
 import Map from "@/components/map/Map";
+import Filter from "@/components/Filter";
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -72,6 +73,9 @@ const Home = () => {
               <Map markers={productsEntities} />
             </Box>
           )}
+          <Box display="flex" justifyContent="right" mb={6}>
+            <Filter />
+          </Box>
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}
           >
