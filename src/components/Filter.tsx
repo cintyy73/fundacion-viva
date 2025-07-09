@@ -33,29 +33,46 @@ export default function Filter() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px">Búsqueda avanzada</DrawerHeader>
+          <DrawerHeader
+            borderBottomWidth="1px"
+            color="secondary.default"
+          >
+            Búsqueda avanzada
+          </DrawerHeader>
           <DrawerBody>
             <Box>
-              <FormLabel htmlFor="owner">Select Owner</FormLabel>
-              <Select id="owner" defaultValue="segun">
+              <FormLabel htmlFor="owner" color="secondary.default">Tipo de producto</FormLabel>
+              <Select
+                id="owner"
+                placeholder="Seleccionar..."
+                _focusVisible={{
+                  borderColor: 'primary.default',
+                  boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
+                }}
+              >
                 <option value="segun">Segun Adebayo</option>
-                <option value="kola">Kola Tioluwani</option>
               </Select>
             </Box>
             <Box>
-              <FormLabel htmlFor="owner">Select Owner</FormLabel>
-              <Select id="owner" defaultValue="segun">
+              <FormLabel htmlFor="owner" color="secondary.default">Tipo de organización</FormLabel>
+              <Select
+                id="owner"
+                placeholder="Seleccionar..."
+                _focusVisible={{
+                  borderColor: 'primary.default',
+                  boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
+                }}
+              >
                 <option value="segun">Segun Adebayo</option>
-                <option value="kola">Kola Tioluwani</option>
               </Select>
             </Box>
             <Box>
-              <FormLabel htmlFor="owner">Select Owner</FormLabel>
-              <Input placeholder="Type here..." />
+              <FormLabel htmlFor="owner" color="secondary.default">Título</FormLabel>
+              <Input placeholder="Título de la publicación" />
             </Box>
             <Box>
-              <FormLabel htmlFor="owner">Select Owner</FormLabel>
-              <Input placeholder="Type here..." />
+              <FormLabel htmlFor="owner" color="secondary.default">Descripción</FormLabel>
+              <Input placeholder="Palabras claves" />
             </Box>
           </DrawerBody>
           <DrawerFooter justifyContent='space-between'>
