@@ -12,18 +12,23 @@ import {
   Select,
   Input,
   DrawerFooter,
+  Text,
 } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 
 export default function Filter() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box>
-      <Button leftIcon={<FaSearch />} my={6} onClick={onOpen}>
+    <Box w="100%" display='flex' justifyContent='end'>
+      <Button
+        rightIcon={<FaSearch />}
+        onClick={onOpen}
+        w={{ base: "100%", md: "250px" }}
+      >
         Búsqueda avanzada
       </Button>
-
       <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
@@ -53,15 +58,25 @@ export default function Filter() {
               <Input placeholder="Type here..." />
             </Box>
           </DrawerBody>
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
-              Cerrar
+          <DrawerFooter justifyContent='space-between'>
+            <Button
+              variant='outline'
+              mr={3}
+              onClick={onClose}
+              w='50%'
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gap="2"
+            >
+              <Text>Cerrar</Text>
+              <IoMdClose />
+
             </Button>
-            <Button leftIcon={<FaSearch />}>Buscar</Button>
+            <Button w='50%' rightIcon={<FaSearch />}>Buscar</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-      
     </Box>
   );
 }
