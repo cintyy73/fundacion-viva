@@ -31,7 +31,7 @@ export default function Filter() {
       </Button>
       <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent maxWidth={{ base: "100%", md: "60%", lg: "40%" }}>
           <DrawerCloseButton />
           <DrawerHeader
             borderBottomWidth="1px"
@@ -39,7 +39,7 @@ export default function Filter() {
           >
             Búsqueda avanzada
           </DrawerHeader>
-          <DrawerBody>
+          <DrawerBody display='flex' flexDirection='column' gap="30px" margin="20px 0 0">
             <Box>
               <FormLabel htmlFor="owner" color="secondary.default">Tipo de producto</FormLabel>
               <Select
