@@ -1,5 +1,5 @@
 import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, FormLabel, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
-import { useState } from "react"; // asegurate de tenerlo importado
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
@@ -19,7 +19,7 @@ export default function Filter() {
       title,
       description,
     });
-    // Acá iría el fetch con filtros, si lo implementás luego
+  
   };
 
   return (
