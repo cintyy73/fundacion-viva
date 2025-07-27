@@ -1,24 +1,26 @@
-import {
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  Box,
-  Button,
-  useDisclosure,
-  DrawerCloseButton,
-  FormLabel,
-  Select,
-  Input,
-  DrawerFooter,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, FormLabel, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
+import { useState } from "react"; // asegurate de tenerlo importado
 import { FaSearch } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
 export default function Filter() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [productType, setProductType] = useState("");
+  const [organizationType, setOrganizationType] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = () => {
+    console.log("Submitted values:");
+    console.log({
+      productType,
+      organizationType,
+      title,
+      description,
+    });
+    // Acá iría el fetch con filtros, si lo implementás luego
+  };
 
   return (
     <Box w="100%" display='flex' justifyContent='end'>
@@ -33,18 +35,17 @@ export default function Filter() {
         <DrawerOverlay />
         <DrawerContent maxWidth={{ base: "100%", md: "60%", lg: "40%" }}>
           <DrawerCloseButton />
-          <DrawerHeader
-            borderBottomWidth="1px"
-            color="secondary.default"
-          >
+          <DrawerHeader borderBottomWidth="1px" color="secondary.default">
             Búsqueda avanzada
           </DrawerHeader>
           <DrawerBody display='flex' flexDirection='column' gap="30px" margin="20px 0 0">
             <Box>
-              <FormLabel htmlFor="owner" color="secondary.default">Tipo de producto</FormLabel>
+              <FormLabel htmlFor="productType" color="secondary.default">Tipo de producto</FormLabel>
               <Select
-                id="owner"
+                id="productType"
                 placeholder="Seleccionar..."
+                value={productType}
+                onChange={(e) => setProductType(e.target.value)}
                 _focusVisible={{
                   borderColor: 'primary.default',
                   boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
@@ -54,10 +55,12 @@ export default function Filter() {
               </Select>
             </Box>
             <Box>
-              <FormLabel htmlFor="owner" color="secondary.default">Tipo de organización</FormLabel>
+              <FormLabel htmlFor="organizationType" color="secondary.default">Tipo de organización</FormLabel>
               <Select
-                id="owner"
+                id="organizationType"
                 placeholder="Seleccionar..."
+                value={organizationType}
+                onChange={(e) => setOrganizationType(e.target.value)}
                 _focusVisible={{
                   borderColor: 'primary.default',
                   boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
@@ -67,12 +70,22 @@ export default function Filter() {
               </Select>
             </Box>
             <Box>
-              <FormLabel htmlFor="owner" color="secondary.default">Título</FormLabel>
-              <Input placeholder="Título de la publicación" />
+              <FormLabel htmlFor="title" color="secondary.default">Título</FormLabel>
+              <Input
+                id="title"
+                placeholder="Título de la publicación"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </Box>
             <Box>
-              <FormLabel htmlFor="owner" color="secondary.default">Descripción</FormLabel>
-              <Input placeholder="Palabras claves" />
+              <FormLabel htmlFor="description" color="secondary.default">Descripción</FormLabel>
+              <Input
+                id="description"
+                placeholder="Palabras claves"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
             </Box>
           </DrawerBody>
           <DrawerFooter justifyContent='space-between'>
@@ -88,9 +101,14 @@ export default function Filter() {
             >
               <Text>Cerrar</Text>
               <IoMdClose />
-
             </Button>
-            <Button w='50%' rightIcon={<FaSearch />}>Buscar</Button>
+            <Button
+              w='50%'
+              rightIcon={<FaSearch />}
+              onClick={handleSubmit}
+            >
+              Buscar
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
