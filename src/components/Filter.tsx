@@ -74,6 +74,10 @@ export default function Filter() {
               <Input
                 id="title"
                 placeholder="Título de la publicación"
+                _focusVisible={{
+                  borderColor: 'primary.default',
+                  boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
+                }}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -83,6 +87,10 @@ export default function Filter() {
               <Input
                 id="description"
                 placeholder="Palabras claves"
+                _focusVisible={{
+                  borderColor: 'primary.default',
+                  boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
+                }}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
