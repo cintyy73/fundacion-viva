@@ -1,10 +1,14 @@
+import { useFixedSearchParams } from "@/hooks/useFixedSearchParams";
 import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, FormLabel, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { useSearchParams } from "react-router-dom";
 
 export default function Filter() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [productType, setProductType] = useState("");
   const [organizationType, setOrganizationType] = useState("");
@@ -12,14 +16,26 @@ export default function Filter() {
   const [description, setDescription] = useState("");
 
   const handleSubmit = () => {
-    console.log("Submitted values:");
-    console.log({
-      productType,
-      organizationType,
+    const page = 1;
+
+  const filterParams = useFixedSearchParams({
+      page,
       title,
       description,
+      productTypes: productType,
+      entityType: organizationType,
     });
-  
+
+     const params: Record<string, string> = {};
+    Object.entries(filterParams).forEach(([key, value]) => {
+      if (value !== "") {
+        params[key] = String(value);
+      }
+    });
+    console.log("Params para la API:", params);
+     setSearchParams(params);
+
+    onClose();
   };
 
   return (

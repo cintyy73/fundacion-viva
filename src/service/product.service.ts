@@ -7,7 +7,7 @@ export const fetchProductsByPage = async (
   const response = await api.get<Response<Product[]>>(
     `catalogs?page[number]=${page}`,
   );
-  console.log("Pagina", response.data.meta.current_page);
+  // console.log("Pagina", response.data.meta.current_page);
   return response.data;
 };
 
