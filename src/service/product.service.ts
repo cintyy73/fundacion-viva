@@ -1,4 +1,4 @@
-import { Product, ProductWithSdgs, Response, Sdg } from "@/types";
+import { CatalogsFilters, Product, ProductWithSdgs, Response, Sdg } from "@/types";
 import { api } from "@/utils/axios";
 
 export const fetchProductsByPage = async (
@@ -7,7 +7,19 @@ export const fetchProductsByPage = async (
   const response = await api.get<Response<Product[]>>(
     `catalogs?page[number]=${page}`,
   );
-  // console.log("Pagina", response.data.meta.current_page);
+
+  return response.data;
+};
+
+export const fetchProductsByParams = async (
+  params: Record<string, string>
+): Promise<Response<Product[]>> => {
+  const response = await api.get<Response<Product[]>>("catalogs", { params });
+  return response.data;
+};
+
+export const fetchCatalogFilters = async (): Promise<CatalogsFilters> => {
+  const response = await api.get<CatalogsFilters>("/catalogs/filters");
   return response.data;
 };
 

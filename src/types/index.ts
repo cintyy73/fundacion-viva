@@ -75,7 +75,7 @@ export interface Network {
 
 export interface Access {
   access_token: string;
-  expires_in: number; // seconds
+  expires_in: number;
   token_type: string;
 }
 

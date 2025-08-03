@@ -1,13 +1,33 @@
 import { useFixedSearchParams } from "@/hooks/useFixedSearchParams";
-import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, FormLabel, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
-import { useState } from "react";
+import { fetchCatalogFilters } from "@/service/product.service";
+import {
+  Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  FormLabel,
+  Input,
+  Select,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
 
+interface Option {
+  id: number | string;
+  name: string;
+}
+
 export default function Filter() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [productType, setProductType] = useState("");
@@ -15,10 +35,47 @@ export default function Filter() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const [productTypesOptions, setProductTypesOptions] = useState<Option[]>([]);
+  const [entityTypesOptions, setEntityTypesOptions] = useState<Option[]>([]);
+
+  useEffect(() => {
+    const titleFromUrl = searchParams.get("filter[withTitle]") || "";
+    setTitle(titleFromUrl);
+
+    const descriptionFromUrl =
+      searchParams.get("filter[withDescription]") || "";
+    setDescription(descriptionFromUrl);
+
+    const productTypeFromUrl = searchParams.get("filter[product_types]") || "";
+    setProductType(productTypeFromUrl);
+
+    const entityTypeFromUrl = searchParams.get("filter[inEntityType]") || "";
+    setOrganizationType(entityTypeFromUrl);
+  }, [searchParams]);
+
+  useEffect(() => {
+    const fetchFilters = async () => {
+      try {
+        const filters = await fetchCatalogFilters();
+
+        const mappedProductTypes = filters.product_types.map((name, index) => ({
+          id: String(index),
+          name: name,
+        }));
+        setProductTypesOptions(mappedProductTypes);
+
+        setEntityTypesOptions(filters.entity_types);
+      } catch (error) {
+        console.error("Error al cargar opciones de filtro:", error);
+      }
+    };
+    fetchFilters();
+  }, []);
+
   const handleSubmit = () => {
     const page = 1;
 
-  const filterParams = useFixedSearchParams({
+    const filterParams = useFixedSearchParams({
       page,
       title,
       description,
@@ -26,20 +83,20 @@ export default function Filter() {
       entityType: organizationType,
     });
 
-     const params: Record<string, string> = {};
+    const params: Record<string, string> = {};
     Object.entries(filterParams).forEach(([key, value]) => {
       if (value !== "") {
         params[key] = String(value);
       }
     });
     console.log("Params para la API:", params);
-     setSearchParams(params);
+    setSearchParams(params);
 
     onClose();
   };
 
   return (
-    <Box w="100%" display='flex' justifyContent='end'>
+    <Box w="100%" display="flex" justifyContent="end">
       <Button
         rightIcon={<FaSearch />}
         onClick={onOpen}
@@ -54,70 +111,91 @@ export default function Filter() {
           <DrawerHeader borderBottomWidth="1px" color="secondary.default">
             Búsqueda avanzada
           </DrawerHeader>
-          <DrawerBody display='flex' flexDirection='column' gap="30px" margin="20px 0 0">
+          <DrawerBody
+            display="flex"
+            flexDirection="column"
+            gap="30px"
+            margin="20px 0 0"
+          >
             <Box>
-              <FormLabel htmlFor="productType" color="secondary.default">Tipo de producto</FormLabel>
+              <FormLabel htmlFor="productType" color="secondary.default">
+                Tipo de producto
+              </FormLabel>
               <Select
                 id="productType"
                 placeholder="Seleccionar..."
                 value={productType}
                 onChange={(e) => setProductType(e.target.value)}
                 _focusVisible={{
-                  borderColor: 'primary.default',
-                  boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
+                  borderColor: "primary.default",
+                  boxShadow: "0 0 0 1px var(--chakra-colors-primary-default)",
                 }}
               >
-                <option value="segun">Segun Adebayo</option>
+                {productTypesOptions.map((option) => (
+                  <option key={option.id} value={option.name}>
+                    {option.name}
+                  </option>
+                ))}
               </Select>
             </Box>
             <Box>
-              <FormLabel htmlFor="organizationType" color="secondary.default">Tipo de organización</FormLabel>
+              <FormLabel htmlFor="organizationType" color="secondary.default">
+                Tipo de organización
+              </FormLabel>
               <Select
                 id="organizationType"
                 placeholder="Seleccionar..."
                 value={organizationType}
                 onChange={(e) => setOrganizationType(e.target.value)}
                 _focusVisible={{
-                  borderColor: 'primary.default',
-                  boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
+                  borderColor: "primary.default",
+                  boxShadow: "0 0 0 1px var(--chakra-colors-primary-default)",
                 }}
               >
-                <option value="segun">Segun Adebayo</option>
+                {entityTypesOptions.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.name}
+                  </option>
+                ))}
               </Select>
             </Box>
             <Box>
-              <FormLabel htmlFor="title" color="secondary.default">Título</FormLabel>
+              <FormLabel htmlFor="title" color="secondary.default">
+                Título
+              </FormLabel>
               <Input
                 id="title"
                 placeholder="Título de la publicación"
                 _focusVisible={{
-                  borderColor: 'primary.default',
-                  boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
+                  borderColor: "primary.default",
+                  boxShadow: "0 0 0 1px var(--chakra-colors-primary-default)",
                 }}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </Box>
             <Box>
-              <FormLabel htmlFor="description" color="secondary.default">Descripción</FormLabel>
+              <FormLabel htmlFor="description" color="secondary.default">
+                Descripción
+              </FormLabel>
               <Input
                 id="description"
                 placeholder="Palabras claves"
                 _focusVisible={{
-                  borderColor: 'primary.default',
-                  boxShadow: '0 0 0 1px var(--chakra-colors-primary-default)',
+                  borderColor: "primary.default",
+                  boxShadow: "0 0 0 1px var(--chakra-colors-primary-default)",
                 }}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Box>
           </DrawerBody>
-          <DrawerFooter justifyContent='space-between'>
+          <DrawerFooter justifyContent="space-between">
             <Button
-              variant='outline'
+              variant="outline"
               mr={3}
               onClick={onClose}
-              w='50%'
+              w="50%"
               display="flex"
               alignItems="center"
               justifyContent="center"
@@ -126,11 +204,7 @@ export default function Filter() {
               <Text>Cerrar</Text>
               <IoMdClose />
             </Button>
-            <Button
-              w='50%'
-              rightIcon={<FaSearch />}
-              onClick={handleSubmit}
-            >
+            <Button w="50%" rightIcon={<FaSearch />} onClick={handleSubmit}>
               Buscar
             </Button>
           </DrawerFooter>
