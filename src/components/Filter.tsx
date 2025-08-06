@@ -26,6 +26,16 @@ interface Option {
   name: string;
 }
 
+
+const formatOptionName = (name: string): string => {
+  const spacedText = name.replace(/([A-Z])/g, " $1");
+  const formattedWords = spacedText.split(" ").map((word) =>
+    word.charAt(0).toUpperCase() + word.slice(1)
+  );
+  
+  return formattedWords.join(" ");
+};
+
 export default function Filter() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -133,7 +143,7 @@ export default function Filter() {
               >
                 {productTypesOptions.map((option) => (
                   <option key={option.id} value={option.name}>
-                    {option.name}
+                    {formatOptionName(option.name)}
                   </option>
                 ))}
               </Select>
