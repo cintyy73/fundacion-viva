@@ -64,23 +64,25 @@ export default function Filter() {
   }, [searchParams]);
 
   useEffect(() => {
-    const fetchFilters = async () => {
-      try {
-        const filters = await fetchCatalogFilters();
+    if (isOpen) {
+      const fetchFilters = async () => {
+        try {
+          const filters = await fetchCatalogFilters();
 
-        const mappedProductTypes = filters.product_types.map((name, index) => ({
-          id: String(index),
-          name: name,
-        }));
-        setProductTypesOptions(mappedProductTypes);
+          const mappedProductTypes = filters.product_types.map((name, index) => ({
+            id: String(index),
+            name: name,
+          }));
+          setProductTypesOptions(mappedProductTypes);
 
-        setEntityTypesOptions(filters.entity_types);
-      } catch (error) {
-        console.error("Error al cargar opciones de filtro:", error);
-      }
-    };
-    fetchFilters();
-  }, []);
+          setEntityTypesOptions(filters.entity_types);
+        } catch (error) {
+          console.error("Error al cargar opciones de filtro:", error);
+        }
+      };
+      fetchFilters();
+    }
+  }, [isOpen]);
 
   const handleSubmit = () => {
     const page = 1;
