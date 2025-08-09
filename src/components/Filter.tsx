@@ -1,4 +1,3 @@
-import { useFixedSearchParams } from "@/hooks/useFixedSearchParams";
 import { fetchCatalogFilters } from "@/service/product.service";
 import {
   Box,
@@ -26,13 +25,11 @@ interface Option {
   name: string;
 }
 
-
 const formatOptionName = (name: string): string => {
   const spacedText = name.replace(/([A-Z])/g, " $1");
   const formattedWords = spacedText.split(" ").map((word) =>
     word.charAt(0).toUpperCase() + word.slice(1)
   );
-  
   return formattedWords.join(" ");
 };
 
@@ -74,7 +71,6 @@ export default function Filter() {
             name: name,
           }));
           setProductTypesOptions(mappedProductTypes);
-
           setEntityTypesOptions(filters.entity_types);
         } catch (error) {
           console.error("Error al cargar opciones de filtro:", error);
@@ -85,25 +81,27 @@ export default function Filter() {
   }, [isOpen]);
 
   const handleSubmit = () => {
-    const page = 1;
+    const newParams: Record<string, string> = { "pagina": "1" };
 
-    const filterParams = useFixedSearchParams({
-      page,
-      title,
-      description,
-      productTypes: productType,
-      entityType: organizationType,
-    });
+    if (title) {
+      newParams["filter[withTitle]"] = title;
+    }
+    if (description) {
+      newParams["filter[withDescription]"] = description;
+    }
+    if (productType) {
+      newParams["filter[product_types]"] = productType;
+    }
+    if (organizationType) {
+      newParams["filter[inEntityType]"] = organizationType;
+    }
 
-    const params: Record<string, string> = {};
-    Object.entries(filterParams).forEach(([key, value]) => {
-      if (value !== "") {
-        params[key] = String(value);
-      }
-    });
-    console.log("Params para la API:", params);
-    setSearchParams(params);
+    setSearchParams(newParams);
+    onClose();
+  };
 
+  const handleClear = () => {
+    setSearchParams({});
     onClose();
   };
 
@@ -206,17 +204,17 @@ export default function Filter() {
             <Button
               variant="outline"
               mr={3}
-              onClick={onClose}
-              w="50%"
+              onClick={handleClear}
+              w="45%"
               display="flex"
               alignItems="center"
               justifyContent="center"
               gap="2"
             >
-              <Text>Cerrar</Text>
+              <Text>Limpiar</Text>
               <IoMdClose />
             </Button>
-            <Button w="50%" rightIcon={<FaSearch />} onClick={handleSubmit}>
+            <Button w="45%" rightIcon={<FaSearch />} onClick={handleSubmit}>
               Buscar
             </Button>
           </DrawerFooter>

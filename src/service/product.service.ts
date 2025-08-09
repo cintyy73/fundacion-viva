@@ -11,9 +11,7 @@ export const fetchProductsByPage = async (
   return response.data;
 };
 
-export const fetchProductsByParams = async (
-  params: Record<string, string>
-): Promise<Response<Product[]>> => {
+export const fetchProductsByParams = async (params: Record<string, string>) => {
   const response = await api.get<Response<Product[]>>("catalogs", { params });
   return response.data;
 };
