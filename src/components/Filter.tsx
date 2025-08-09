@@ -11,7 +11,6 @@ import {
   DrawerOverlay,
   FormLabel,
   Input,
-  Select,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -19,17 +18,23 @@ import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
+import AsyncSelect from "react-select/async";
 
 interface Option {
   id: number | string;
   name: string;
 }
 
+interface ReactSelectOption {
+  value: string;
+  label: string;
+}
+
 const formatOptionName = (name: string): string => {
   const spacedText = name.replace(/([A-Z])/g, " $1");
-  const formattedWords = spacedText.split(" ").map((word) =>
-    word.charAt(0).toUpperCase() + word.slice(1)
-  );
+  const formattedWords = spacedText
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
   return formattedWords.join(" ");
 };
 
@@ -37,13 +42,13 @@ export default function Filter() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [productType, setProductType] = useState("");
-  const [organizationType, setOrganizationType] = useState("");
+  const [productTypes, setProductTypes] = useState<ReactSelectOption[]>([]);
+
+  const [organizationTypes, setOrganizationTypes] = useState<
+    ReactSelectOption[]
+  >([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  const [productTypesOptions, setProductTypesOptions] = useState<Option[]>([]);
-  const [entityTypesOptions, setEntityTypesOptions] = useState<Option[]>([]);
 
   useEffect(() => {
     const titleFromUrl = searchParams.get("filter[withTitle]") || "";
@@ -53,48 +58,87 @@ export default function Filter() {
       searchParams.get("filter[withDescription]") || "";
     setDescription(descriptionFromUrl);
 
-    const productTypeFromUrl = searchParams.get("filter[product_types]") || "";
-    setProductType(productTypeFromUrl);
+    const productTypesFromUrl = searchParams.get("filter[product_types]") || "";
+    if (productTypesFromUrl) {
+      const optionsArray = productTypesFromUrl.split(",").map((name) => ({
+        value: name,
+        label: formatOptionName(name),
+      }));
+      setProductTypes(optionsArray);
+    } else {
+      setProductTypes([]);
+    }
 
-    const entityTypeFromUrl = searchParams.get("filter[inEntityType]") || "";
-    setOrganizationType(entityTypeFromUrl);
+    const organizationTypesFromUrl =
+      searchParams.get("filter[inEntityType]") || "";
+    if (organizationTypesFromUrl) {
+      const optionsArray = organizationTypesFromUrl.split(",").map((id) => ({
+        value: id,
+        label: id,
+      }));
+      setOrganizationTypes(optionsArray);
+    } else {
+      setOrganizationTypes([]);
+    }
   }, [searchParams]);
 
-  useEffect(() => {
-    if (isOpen) {
-      const fetchFilters = async () => {
-        try {
-          const filters = await fetchCatalogFilters();
+  const loadProductTypes = async (inputValue: string) => {
+    const filters = await fetchCatalogFilters();
+    const options = filters.product_types.map((name) => ({
+      value: name,
+      label: formatOptionName(name),
+    }));
 
-          const mappedProductTypes = filters.product_types.map((name, index) => ({
-            id: String(index),
-            name: name,
-          }));
-          setProductTypesOptions(mappedProductTypes);
-          setEntityTypesOptions(filters.entity_types);
-        } catch (error) {
-          console.error("Error al cargar opciones de filtro:", error);
-        }
-      };
-      fetchFilters();
-    }
-  }, [isOpen]);
+    return options.filter((option) =>
+      option.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  };
+
+  const loadOrganizationTypes = async (inputValue: string) => {
+    const filters = await fetchCatalogFilters();
+    const options = filters.entity_types.map((entity) => ({
+      value: String(entity.id),
+      label: entity.name,
+    }));
+
+    return options.filter((option) =>
+      option.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  };
 
   const handleSubmit = () => {
-    const newParams: Record<string, string> = { "pagina": "1" };
+    const currentParams = Object.fromEntries(searchParams.entries());
+    const newParams: Record<string, string> = { ...currentParams };
 
     if (title) {
       newParams["filter[withTitle]"] = title;
+    } else {
+      delete newParams["filter[withTitle]"];
     }
+
     if (description) {
       newParams["filter[withDescription]"] = description;
+    } else {
+      delete newParams["filter[withDescription]"];
     }
-    if (productType) {
-      newParams["filter[product_types]"] = productType;
+
+    if (productTypes && productTypes.length > 0) {
+      newParams["filter[product_types]"] = productTypes
+        .map((p) => p.value)
+        .join(",");
+    } else {
+      delete newParams["filter[product_types]"];
     }
-    if (organizationType) {
-      newParams["filter[inEntityType]"] = organizationType;
+
+    if (organizationTypes && organizationTypes.length > 0) {
+      newParams["filter[inEntityType]"] = organizationTypes
+        .map((o) => o.value)
+        .join(",");
+    } else {
+      delete newParams["filter[inEntityType]"];
     }
+
+    newParams["pagina"] = "1";
 
     setSearchParams(newParams);
     onClose();
@@ -128,46 +172,70 @@ export default function Filter() {
             margin="20px 0 0"
           >
             <Box>
-              <FormLabel htmlFor="productType" color="secondary.default">
+              <FormLabel id="productTypeLabel" color="secondary.default">
                 Tipo de producto
               </FormLabel>
-              <Select
-                id="productType"
+              <AsyncSelect
+                aria-labelledby="productTypeLabel"
+                isMulti
+                cacheOptions
+                defaultOptions
+                value={productTypes}
+                loadOptions={loadProductTypes}
+                onChange={(selectedOptions) =>
+                  setProductTypes(selectedOptions as ReactSelectOption[])
+                }
                 placeholder="Seleccionar..."
-                value={productType}
-                onChange={(e) => setProductType(e.target.value)}
-                _focusVisible={{
-                  borderColor: "primary.default",
-                  boxShadow: "0 0 0 1px var(--chakra-colors-primary-default)",
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isFocused
+                      ? "primary.default"
+                      : baseStyles.borderColor,
+                    boxShadow: state.isFocused
+                      ? "0 0 0 1px var(--chakra-colors-primary-default)"
+                      : baseStyles.boxShadow,
+                    "&:hover": {
+                      borderColor: state.isFocused
+                        ? "primary.default"
+                        : baseStyles.borderColor,
+                    },
+                  }),
                 }}
-              >
-                {productTypesOptions.map((option) => (
-                  <option key={option.id} value={option.name}>
-                    {formatOptionName(option.name)}
-                  </option>
-                ))}
-              </Select>
+              />
             </Box>
             <Box>
-              <FormLabel htmlFor="organizationType" color="secondary.default">
+              <FormLabel id="organizationTypeLabel" color="secondary.default">
                 Tipo de organización
               </FormLabel>
-              <Select
-                id="organizationType"
+              <AsyncSelect
+                aria-labelledby="organizationTypeLabel"
+                isMulti
+                cacheOptions
+                defaultOptions
+                value={organizationTypes}
+                loadOptions={loadOrganizationTypes}
+                onChange={(selectedOptions) =>
+                  setOrganizationTypes(selectedOptions as ReactSelectOption[])
+                }
                 placeholder="Seleccionar..."
-                value={organizationType}
-                onChange={(e) => setOrganizationType(e.target.value)}
-                _focusVisible={{
-                  borderColor: "primary.default",
-                  boxShadow: "0 0 0 1px var(--chakra-colors-primary-default)",
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isFocused
+                      ? "primary.default"
+                      : baseStyles.borderColor,
+                    boxShadow: state.isFocused
+                      ? "0 0 0 1px var(--chakra-colors-primary-default)"
+                      : baseStyles.boxShadow,
+                    "&:hover": {
+                      borderColor: state.isFocused
+                        ? "primary.default"
+                        : baseStyles.borderColor,
+                    },
+                  }),
                 }}
-              >
-                {entityTypesOptions.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
-                  </option>
-                ))}
-              </Select>
+              />
             </Box>
             <Box>
               <FormLabel htmlFor="title" color="secondary.default">
