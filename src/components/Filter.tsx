@@ -20,11 +20,6 @@ import { IoMdClose } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
 import AsyncSelect from "react-select/async";
 
-interface Option {
-  id: number | string;
-  name: string;
-}
-
 interface ReactSelectOption {
   value: string;
   label: string;
@@ -41,45 +36,64 @@ const formatOptionName = (name: string): string => {
 export default function Filter() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [productTypes, setProductTypes] = useState<ReactSelectOption[]>([]);
-
   const [organizationTypes, setOrganizationTypes] = useState<
     ReactSelectOption[]
   >([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const hasActiveFilters = () => {
+    const params = Object.fromEntries(searchParams.entries());
+    const filterParams = Object.keys(params).filter(
+      (key) => key !== "pagina"
+    );
+    return filterParams.length > 0;
+  };
+
   useEffect(() => {
-    const titleFromUrl = searchParams.get("filter[withTitle]") || "";
-    setTitle(titleFromUrl);
+    const loadInitialState = async () => {
+      const allFilters = await fetchCatalogFilters();
 
-    const descriptionFromUrl =
-      searchParams.get("filter[withDescription]") || "";
-    setDescription(descriptionFromUrl);
+      const titleFromUrl = searchParams.get("filter[withTitle]") || "";
+      setTitle(titleFromUrl);
 
-    const productTypesFromUrl = searchParams.get("filter[product_types]") || "";
-    if (productTypesFromUrl) {
-      const optionsArray = productTypesFromUrl.split(",").map((name) => ({
-        value: name,
-        label: formatOptionName(name),
-      }));
-      setProductTypes(optionsArray);
-    } else {
-      setProductTypes([]);
-    }
+      const descriptionFromUrl =
+        searchParams.get("filter[withDescription]") || "";
+      setDescription(descriptionFromUrl);
 
-    const organizationTypesFromUrl =
-      searchParams.get("filter[inEntityType]") || "";
-    if (organizationTypesFromUrl) {
-      const optionsArray = organizationTypesFromUrl.split(",").map((id) => ({
-        value: id,
-        label: id,
-      }));
-      setOrganizationTypes(optionsArray);
-    } else {
-      setOrganizationTypes([]);
-    }
+      const productTypesFromUrl =
+        searchParams.get("filter[product_types]") || "";
+      if (productTypesFromUrl) {
+        const optionsArray = productTypesFromUrl
+          .split(",")
+          .map((name) => ({ value: name, label: formatOptionName(name) }));
+        setProductTypes(optionsArray);
+      } else {
+        setProductTypes([]);
+      }
+
+      const organizationTypesFromUrl =
+        searchParams.get("filter[inEntityType]") || "";
+      if (organizationTypesFromUrl) {
+        const optionsArray = organizationTypesFromUrl.split(",").map((id) => {
+          const matchingEntity = allFilters.entity_types.find(
+            (entity) => String(entity.id) === id
+          );
+          return {
+            value: id,
+            label: matchingEntity
+              ? formatOptionName(matchingEntity.name)
+              : `ID: ${id}`,
+          };
+        });
+        setOrganizationTypes(optionsArray);
+      } else {
+        setOrganizationTypes([]);
+      }
+    };
+
+    loadInitialState();
   }, [searchParams]);
 
   const loadProductTypes = async (inputValue: string) => {
@@ -98,7 +112,7 @@ export default function Filter() {
     const filters = await fetchCatalogFilters();
     const options = filters.entity_types.map((entity) => ({
       value: String(entity.id),
-      label: entity.name,
+      label: formatOptionName(entity.name),
     }));
 
     return options.filter((option) =>
@@ -151,6 +165,20 @@ export default function Filter() {
 
   return (
     <Box w="100%" display="flex" justifyContent="end">
+      <Button
+        variant="outline"
+        mr={3}
+        onClick={handleClear}
+        w={{ base: "100%", md: "250px" }}
+        display={hasActiveFilters() ? "flex" : "none"}
+        alignItems="center"
+        justifyContent="center"
+        colorScheme="secondary"
+        gap="2"
+      >
+        <Text>Limpiar</Text>
+        <IoMdClose />
+      </Button>
       <Button
         rightIcon={<FaSearch />}
         onClick={onOpen}
@@ -277,6 +305,7 @@ export default function Filter() {
               display="flex"
               alignItems="center"
               justifyContent="center"
+              colorScheme="secondary"
               gap="2"
             >
               <Text>Limpiar</Text>
