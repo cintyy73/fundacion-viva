@@ -42,11 +42,6 @@ export const theme = extendTheme({
     },
   },
 
-  // fonts: {
-  //   heading: `'Outfit', sans-serif`,
-  //   body: `'Plus Jakarta Sans', sans-serif`,
-  // },
-
   components: {
     Button,
   },

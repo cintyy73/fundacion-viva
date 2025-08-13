@@ -1,5 +1,6 @@
 import { fetchProduct } from "@/service/product.service";
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -115,7 +116,11 @@ const Details = () => {
           </CardHeader>
         )}
         {entity.about_us && (
-          <CardBody>
+          <CardBody
+            display="flex"
+            flexDirection="column"
+            gap="20px"
+          >
             <Box>
               <Heading fontSize="xl" color="primary.default">
                 Sobre nosotros:
@@ -124,6 +129,9 @@ const Details = () => {
             <Text pt="2" fontSize="sm">
               {entity.about_us}
             </Text>
+            <Stack direction='row'>
+              <Badge colorScheme="secondary">{entity.type.name}</Badge>
+            </Stack>
           </CardBody>
         )}
       </Card>
@@ -219,7 +227,7 @@ const Details = () => {
           </Stack>
         </CardBody>
       </Card>
-    </Container>
+    </Container >
   );
 };
 
