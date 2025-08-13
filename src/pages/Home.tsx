@@ -51,28 +51,49 @@ const Home = () => {
     setSearchParams(newParams);
   };
 
+  const hasSearchParams = Object.keys(paramsObj).length > 0;
   const skeletonCount = 9;
 
   return (
-    <Box maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }} m="20px auto">
-      <Banner />
-
+    <Box
+      maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
+      m="20px auto"
+    >
       {isLoading || isFetching ? (
-        <Box mb={6}>
-          <Skeleton height="200px" borderRadius="xl" />
-        </Box>
+        <>
+          <Box mb={6}>
+            <Skeleton height="200px" borderRadius="xl" />
+          </Box>
+          <Box mb={6}>
+            <Skeleton height="200px" borderRadius="xl" />
+          </Box>
+        </>
       ) : (
-        <Box borderRadius="xl" overflow="hidden" my={6}>
-          <Map markers={productsEntities} />
-        </Box>
+        <>
+          <Banner />
+          <Box borderRadius="xl" overflow="hidden" my={6}>
+            <Map markers={productsEntities} />
+          </Box>
+        </>
       )}
 
       <Box display="flex" justifyContent="right" mb={6}>
-        <Filter />
+        {isLoading || isFetching ? (
+          <HStack spacing={4}>
+            <Skeleton height="40px" width="250px" borderRadius="md" />
+            {hasSearchParams && (
+              <Skeleton height="40px" width="250px" borderRadius="md" />
+            )}
+          </HStack>
+        ) : (
+          <Filter />
+        )}
       </Box>
 
       {isLoading || isFetching ? (
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}
+        >
           <Masonry gutter="15px">
             {Array.from({ length: skeletonCount }).map((_, i) => (
               <Box key={i} display="flex" justifyContent="space-around">
@@ -83,10 +104,16 @@ const Home = () => {
         </ResponsiveMasonry>
       ) : hasProducts ? (
         <>
-          <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}
+          >
             <Masonry gutter="15px">
               {products.map((product: any) => (
-                <Box key={product.id} display="flex" justifyContent="space-around">
+                <Box
+                  key={product.id}
+                  display="flex"
+                  justifyContent="space-around"
+                >
                   <Card data={product} />
                 </Box>
               ))}
@@ -94,7 +121,10 @@ const Home = () => {
           </ResponsiveMasonry>
 
           <HStack mt={6} spacing={4} justify="center" margin="70px 0px">
-            <Button onClick={() => goToPage(page - 1)} isDisabled={!hasPrev || page <= 1}>
+            <Button
+              onClick={() => goToPage(page - 1)}
+              isDisabled={!hasPrev || page <= 1}
+            >
               <FaArrowLeft />
             </Button>
             <Box>{page}</Box>

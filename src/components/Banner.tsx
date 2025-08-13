@@ -55,10 +55,7 @@ const Banner = () => {
       className="keen-slider"
       overflow="hidden"
       w="full"
-      maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
-      mx="auto"
       h={{ base: "100px", md: "200px", xl: "250px" }}
-      m="10px auto"
     >
       {images.map((src, index) => (
         <Box
