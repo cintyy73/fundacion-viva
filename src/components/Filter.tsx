@@ -215,18 +215,22 @@ export default function Filter() {
                 }
                 placeholder="Seleccionar..."
                 styles={{
-                  control: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderColor: state.isFocused
-                      ? "primary.default"
-                      : baseStyles.borderColor,
+                  control: (base, state) => ({
+                    ...base,
+                    borderColor: state.isFocused ? "#C0E83E" : base.borderColor,
                     boxShadow: state.isFocused
-                      ? "0 0 0 1px var(--chakra-colors-primary-default)"
-                      : baseStyles.boxShadow,
+                      ? "0 0 0 1px #C0E83E"
+                      : base.boxShadow,
                     "&:hover": {
-                      borderColor: state.isFocused
-                        ? "primary.default"
-                        : baseStyles.borderColor,
+                      borderColor: state.isFocused ? "#C0E83E" : base.borderColor,
+                    },
+                  }),
+                  multiValueRemove: (base) => ({
+                    ...base,
+                    color: "black",
+                    ":hover": {
+                      backgroundColor: "#e6e6e6",
+                      color: "#6e3fab",
                     },
                   }),
                 }}
@@ -248,18 +252,22 @@ export default function Filter() {
                 }
                 placeholder="Seleccionar..."
                 styles={{
-                  control: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderColor: state.isFocused
-                      ? "primary.default"
-                      : baseStyles.borderColor,
+                  control: (base, state) => ({
+                    ...base,
+                    borderColor: state.isFocused ? "#C0E83E" : base.borderColor,
                     boxShadow: state.isFocused
-                      ? "0 0 0 1px var(--chakra-colors-primary-default)"
-                      : baseStyles.boxShadow,
+                      ? "0 0 0 1px #C0E83E"
+                      : base.boxShadow,
                     "&:hover": {
-                      borderColor: state.isFocused
-                        ? "primary.default"
-                        : baseStyles.borderColor,
+                      borderColor: state.isFocused ? "#C0E83E" : base.borderColor,
+                    },
+                  }),
+                  multiValueRemove: (base) => ({
+                    ...base,
+                    color: "black",
+                    ":hover": {
+                      backgroundColor: "#e6e6e6",
+                      color: "#6e3fab",
                     },
                   }),
                 }}
