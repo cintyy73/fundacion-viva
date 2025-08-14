@@ -5,8 +5,6 @@ import { useEffect, useRef } from "react";
 
 const images = [
   "assets/banner.jpg",
-  "assets/fonselp1.png",
-  "assets/fonselp2.png",
 ];
 
 const Banner = () => {
@@ -55,7 +53,7 @@ const Banner = () => {
       className="keen-slider"
       overflow="hidden"
       w="full"
-      h={{ base: "100px", md: "200px", xl: "250px" }}
+      h={{ base: "180px", md: "200px" }}
     >
       {images.map((src, index) => (
         <Box
