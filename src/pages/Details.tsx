@@ -55,7 +55,7 @@ const Details = () => {
     );
   }
 
-  const { title, description, entity, sdgs } = data;
+  const { title, description, entity, sdgs, product_type } = data;
 
   const productsEntity = [
     {
@@ -107,12 +107,22 @@ const Details = () => {
       >
         {description && (
           <CardHeader>
+            <Box
+              display="flex"
+              flexDirection="column"
+              gap="10px"
+            >
+              <Heading fontSize="xl" color="primary.default">
+                Descripción:
+              </Heading>
+              <Divider orientation="horizontal" marginTop="10px" />
+            </Box>
             <Heading
               fontSize="xl"
               color="secondary.default"
+              marginTop="20px"
               dangerouslySetInnerHTML={{ __html: description }}
             ></Heading>
-            <Divider orientation="horizontal" marginTop="10px" />
           </CardHeader>
         )}
         {entity.about_us && (
@@ -130,7 +140,7 @@ const Details = () => {
               {entity.about_us}
             </Text>
             <Stack direction='row'>
-              <Badge colorScheme="secondary">{entity.type.name}</Badge>
+              <Badge colorScheme="secondary" padding='7px'>{product_type}</Badge>
             </Stack>
           </CardBody>
         )}
