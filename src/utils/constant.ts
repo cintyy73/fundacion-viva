@@ -85,3 +85,5 @@ export const ods = [
     link: "https://www.un.org/sustainabledevelopment/es/globalpartnerships/",
   },
 ];
+
+export const IMG_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".svg"];
