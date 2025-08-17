@@ -44,14 +44,45 @@ const Details = () => {
 
   if (error || !data) {
     return (
-      <Box textAlign="center" py={10} px={6}>
-        <Heading as="h2" size="xl" mb={2} color="secundary.default">
-          Error al cargar el detalle del producto
-        </Heading>
-        <Text color="primery.default" fontSize="lg">
-          Por favor, intentá recargar la página o volver más tarde.
-        </Text>
-      </Box>
+      <Container
+        display="flex"
+        flexDirection="column"
+        maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
+        gap="20px"
+        padding="0px"
+        marginBottom="40px"
+      >
+        <Box margin="20px 0">
+          <Button
+            onClick={() => navigate(-1)}>
+            <FaLongArrowAltLeft /> Volver
+          </Button>
+        </Box>
+        <Container
+          display="flex"
+          flexDirection="column"
+          alignItems='center'
+          justifyContent='center'
+          height= '40vh'
+        >
+          <Heading
+            as="h2"
+            size="xl"
+            mb={2}
+            color="secondary.default"
+            textAlign='center'
+          >
+            Error al cargar el detalle del producto
+          </Heading>
+          <Text
+            color="secondary.default"
+            fontSize="lg"
+            textAlign='center'
+          >
+            Por favor, intentá recargar la página o volver más tarde.
+          </Text>
+        </Container>
+      </Container>
     );
   }
 
