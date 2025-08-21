@@ -50,7 +50,7 @@ const Card = ({ data, isLoading = false }: CardProps) => {
       />}
 
       <CardHeader>
-        <Text noOfLines={2}>{data?.title || "Sin título"}</Text>
+        <Text noOfLines={2} fontWeight="bold">{data?.title || "Sin título"}</Text>
         <Divider border="1px" />
       </CardHeader>
 
@@ -73,6 +73,8 @@ const Card = ({ data, isLoading = false }: CardProps) => {
           href={data?.entity?.web_profile || "#"}
           target="_blank"
           rel="noopener noreferrer"
+          fontWeight="bold"
+          color="secondary.default"
         >
           {data?.entity?.fantasy_name ||
             data?.entity?.bussiness_name ||
@@ -82,7 +84,7 @@ const Card = ({ data, isLoading = false }: CardProps) => {
           Ver más
         </Button>
       </CardFooter>
-      <Text textAlign="center" py={2}>
+      <Text textAlign="left" mx={5} fontWeight="bold" py={2}>
         {data?.entity?.type?.name || data?.product_type || "—"}
       </Text>
     </ChakraCard>

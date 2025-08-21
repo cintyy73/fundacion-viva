@@ -74,6 +74,7 @@ const Footer = () => {
         <HStack
           spacing={{ base: 4, md: 8 }}
           flexWrap="wrap"
+          alignItems="start"
           justifyContent="center"
         >
           <Text fontSize="xs" maxW="200px">

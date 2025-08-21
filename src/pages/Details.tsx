@@ -44,18 +44,49 @@ const Details = () => {
 
   if (error || !data) {
     return (
-      <Box textAlign="center" py={10} px={6}>
-        <Heading as="h2" size="xl" mb={2} color="secundary.default">
-          Error al cargar el detalle del producto
-        </Heading>
-        <Text color="primery.default" fontSize="lg">
-          Por favor, intentá recargar la página o volver más tarde.
-        </Text>
-      </Box>
+      <Container
+        display="flex"
+        flexDirection="column"
+        maxW={{ base: "80%", md: "80%", lg: "800px", xl: "1000px" }}
+        gap="20px"
+        padding="0px"
+        marginBottom="40px"
+      >
+        <Box margin="20px 0">
+          <Button
+            onClick={() => navigate(-1)}>
+            <FaLongArrowAltLeft /> Volver
+          </Button>
+        </Box>
+        <Container
+          display="flex"
+          flexDirection="column"
+          alignItems='center'
+          justifyContent='center'
+          height= '40vh'
+        >
+          <Heading
+            as="h2"
+            size="xl"
+            mb={2}
+            color="secondary.default"
+            textAlign='center'
+          >
+            Error al cargar el detalle del producto
+          </Heading>
+          <Text
+            color="secondary.default"
+            fontSize="lg"
+            textAlign='center'
+          >
+            Por favor, intentá recargar la página o volver más tarde.
+          </Text>
+        </Container>
+      </Container>
     );
   }
 
-  const { title, description, entity, sdgs } = data;
+  const { title, description, entity, sdgs, product_type } = data;
 
   const productsEntity = [
     {
@@ -107,12 +138,22 @@ const Details = () => {
       >
         {description && (
           <CardHeader>
+            <Box
+              display="flex"
+              flexDirection="column"
+              gap="10px"
+            >
+              <Heading fontSize="xl" color="primary.default">
+                Descripción:
+              </Heading>
+              <Divider orientation="horizontal" marginTop="10px" />
+            </Box>
             <Heading
               fontSize="xl"
               color="secondary.default"
+              marginTop="20px"
               dangerouslySetInnerHTML={{ __html: description }}
             ></Heading>
-            <Divider orientation="horizontal" marginTop="10px" />
           </CardHeader>
         )}
         {entity.about_us && (
@@ -130,7 +171,7 @@ const Details = () => {
               {entity.about_us}
             </Text>
             <Stack direction='row'>
-              <Badge colorScheme="secondary">{entity.type.name}</Badge>
+              <Badge colorScheme="secondary" padding='7px'>{product_type}</Badge>
             </Stack>
           </CardBody>
         )}
