@@ -41,7 +41,7 @@ const Card = ({ data, isLoading = false }: CardProps) => {
   return (
     <ChakraCard borderRadius="10px" overflow="hidden" w="100%" minW="250px">
      {isValidPath && <Image
-        src={`${import.meta.env.VITE_STORAGE_URL}${imageSrc}` || "/imagenEjemploCard.png"}
+        src={imageSrc || "/imagenEjemploCard.png"}
         alt={data?.title || "Imagen del producto"}
         fallbackSrc="/imagenEjemploCard.png"
         objectFit="cover"
