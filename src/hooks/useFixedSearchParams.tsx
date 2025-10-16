@@ -19,7 +19,7 @@ export function useFixedSearchParams({
     "filter[withDescription]": description,
     "filter[product_types]": productTypes,
     "filter[inEntityType]": entityType === "0" ? "" : entityType,
-    "filter[networks]": "9",
+    // "filter[networks]": "",
     include: "networks",
   };
 }
