@@ -4,7 +4,7 @@ import Masonry from "react-responsive-masonry";
 import Card from "../components/Card";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductsByParams } from "@/service/product.service";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Banner from "@/components/Banner";
 import { useSearchParams } from "react-router-dom";
@@ -15,7 +15,7 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const paramsObj = Object.fromEntries(searchParams.entries());
-  const page = parseInt(paramsObj["pagina"] || "1");
+  const page = Math.max(parseInt(paramsObj["page[number]"] || "1"), 1); // Validar que page nunca sea menor que 1
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -35,19 +35,23 @@ const Home = () => {
   const hasNext = Boolean(data?.links?.next);
   const hasPrev = Boolean(data?.links?.prev);
 
-  const productsEntities = products
-    .filter((p: any) => p.entity?.location_lat && p.entity?.location_lng)
-    .map((product: any) => ({
-      id: product.entity.id,
-      bussinessName: product.entity.bussiness_name,
-      fantasyName: product.entity.fantasy_name,
-      lat: product.entity.location_lat,
-      lng: product.entity.location_lng,
-    }));
+  const productsEntities = useMemo(
+    () =>
+      products
+        .filter((p: any) => p.entity?.location_lat && p.entity?.location_lng)
+        .map((product: any) => ({
+          id: product.entity.id,
+          bussinessName: product.entity.bussiness_name,
+          fantasyName: product.entity.fantasy_name,
+          lat: product.entity.location_lat,
+          lng: product.entity.location_lng,
+        })),
+    [products]
+  );
 
   const goToPage = (newPage: number) => {
     const newParams = new URLSearchParams(searchParams);
-    newParams.set("pagina", String(newPage));
+    newParams.set("page[number]", String(newPage)); // Cambiar pagina por page[number]
     setSearchParams(newParams);
   };
 
@@ -124,11 +128,16 @@ const Home = () => {
             <Button
               onClick={() => goToPage(page - 1)}
               isDisabled={!hasPrev || page <= 1}
+              aria-label="Página anterior"
             >
               <FaArrowLeft />
             </Button>
             <Box>{page}</Box>
-            <Button onClick={() => goToPage(page + 1)} isDisabled={!hasNext}>
+            <Button
+              onClick={() => goToPage(page + 1)}
+              isDisabled={!hasNext}
+              aria-label="Página siguiente"
+            >
               <FaArrowRight />
             </Button>
           </HStack>
